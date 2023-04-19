@@ -3,7 +3,15 @@ import axios from 'axios';
 
 export const fetchAllProductsAsync = createAsyncThunk(
   'products/fetchAll',
-  async () => {}
+  async () => {
+    try {
+      const { data } = await axios.get('/api/products');
+
+      return data;
+    } catch (err) {
+      return err;
+    }
+  }
 );
 
 export const addProductAsync = createAsyncThunk(
@@ -20,7 +28,11 @@ const allProductsSlice = createSlice({
   name: 'allProducts',
   initialState: [],
   reducers: {},
-  extraReducers: (builder) => {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchAllProductsAsync.fulfilled, (state, action) => {
+        return action.payload;
+      });
+  },
 });
 
 export const selectProducts = (state) => state.allProducts;
