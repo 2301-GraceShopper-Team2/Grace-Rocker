@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
-import AuthForm from '../features/auth/AuthForm';
-import Home from '../features/home/Home';
-import { me } from './store';
-import AllUsers from '../features/allUsers/AllUsers.js';
-import SingleUser from '../features/singleUser/SingleUser.js';
-import AllProducts from '../features/allProducts/AllProducts.js';
-import SingleProduct from '../features/singleProduct/SingleProduct.js';
-import Cart from '../features/cart/Cart.js';
-import CreateProduct from '../features/createProduct/CreateProduct.js';
-import Checkout from '../features/checkout/Checkout.js';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Route, Routes } from "react-router-dom";
+import AllProducts from "../features/allProducts/AllProducts.js";
+import AllUsers from "../features/allUsers/allUsers";
+import AuthForm from "../features/auth/AuthForm";
+import Cart from "../features/cart/Cart.js";
+import Checkout from "../features/checkout/Checkout.js";
+import CreateProduct from "../features/createProduct/CreateProduct.js";
+import Home from "../features/home/Home";
+import SingleProduct from "../features/singleProduct/SingleProduct.js";
+import SingleUser from "../features/singleUser/SingleUser.js";
+import { me } from "./store";
 
 /**
  * COMPONENT
