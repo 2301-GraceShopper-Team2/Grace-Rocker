@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { fetchAllUsers, selectAllUsers } from "./allUsersSlice";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { fetchAllUsers, selectAllUsers } from './allUsersSlice';
+
 const AllUsers = () => {
   const dispatch = useDispatch();
   const allUsers = useSelector(selectAllUsers);
@@ -24,4 +25,5 @@ const AllUsers = () => {
     </div>
   );
 };
+
 export default AllUsers;

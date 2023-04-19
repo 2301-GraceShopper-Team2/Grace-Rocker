@@ -46,7 +46,7 @@ router.put("/:id", async (req, res, next) => {
     const { id } = req.params;
     const product = await Product.findByPk(id);
     const response = await product.update(req.body);
-    // console.log(response);
+   
     res.send(response);
   } catch (err) {
     if (err.name === "SequelizeValidationError") {
