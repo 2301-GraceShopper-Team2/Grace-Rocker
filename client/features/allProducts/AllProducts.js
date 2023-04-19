@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAllProductsAsync } from "./AllProductsSlice"; //case is weird
-import { selectProducts } from "./AllProductsSlice";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAllProductsAsync } from './AllProductsSlice'; //case is weird
+import { selectProducts } from './AllProductsSlice';
 
 const AllProducts = () => {
   const dispatch = useDispatch();
@@ -16,7 +16,13 @@ const AllProducts = () => {
       <h1>AllProducts</h1>
       <ul>
         {products.map((product) => (
-          <li key={product.id}>{product.name}</li>
+          <li key={product.id}>
+            <h4>{product.name}</h4>
+            <p>{product.description}</p>
+            <p>Price: ${product.price}</p>
+            <p>SKU: {product.SKU}</p>
+            <img src={product.imageURL} />
+          </li>
         ))}
       </ul>
     </div>
