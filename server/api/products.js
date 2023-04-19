@@ -31,11 +31,12 @@ router.get("/:id", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
   try {
     const newProduct = await Product.create(req.body);
-    if (!newProduct) {
-      res.status(400).send("Error 400 Invalid Entry");
-    }
+
     res.status(201).json(newProduct);
   } catch (err) {
+    if (err.name === "SequelizeValidationError") {
+      return res.status(400).send("Error 400: Invalid Entry");
+    }
     next(err);
   }
 });
@@ -44,12 +45,13 @@ router.put("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     const product = await Product.findByPk(id);
-    const updatedProduct = await product.update(req.body);
-    if (!updatedProduct) {
-      res.status(400).send("Error 400 Invalid Entry");
-    }
-    res.json(updatedProduct);
+    const response = await product.update(req.body);
+    // console.log(response);
+    res.send(response);
   } catch (err) {
+    if (err.name === "SequelizeValidationError") {
+      return res.status(400).send("Error 400: Invalid Entry");
+    }
     next(err);
   }
 });
