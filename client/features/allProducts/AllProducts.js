@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchAllProductsAsync } from './allProductsSlice.js';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllProductsAsync } from "./AllProductsSlice"; //case is weird
 
 const AllProducts = () => {
   const dispatch = useDispatch();
