@@ -51,7 +51,7 @@ async function seed() {
       password: "IAE81SPK4OY",
       isAdmin: false,
     }),
-    User.craete({
+    User.create({
       username: "Steel Lopez",
       email: "orci.ut@google.couk",
       alphanumeric: "JEH02GZV6UH",
