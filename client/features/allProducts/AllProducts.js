@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllProductsAsync } from "./AllProductsSlice"; //case is weird
+import { selectProducts } from "./AllProductsSlice";
 
 const AllProducts = () => {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.allProducts.products); // state.allProducts.products is the name of the slice of state in the store
+  const products = useSelector(selectProducts); // state.allProducts.products is the name of the slice of state in the store
 
   useEffect(() => {
     dispatch(fetchAllProductsAsync());
