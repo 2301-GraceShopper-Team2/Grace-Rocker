@@ -1,9 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit';
-import logger from 'redux-logger';
-import authReducer from '../features/auth/authSlice';
-import allUsersReducer from '../features/allUsers/allUsersSlice';
-import allProductsReducer from '../features/allProducts/AllProductsSlice';
-import singleUserReducer from '../features/singleUser/singleUserSlice.js';
+import { configureStore } from "@reduxjs/toolkit";
+import logger from "redux-logger";
+import allProductsReducer from "../features/allProducts/AllProductsSlice";
+import allUsersReducer from "../features/allUsers/allUsersSlice";
+import authReducer from "../features/auth/authSlice";
+import singleUserReducer from "../features/singleUser/singleUserSlice.js";
 // import singleProductReducer from '../features/singleProduct/singleProductSlice.js'
 
 const store = configureStore({
@@ -18,4 +18,4 @@ const store = configureStore({
 });
 
 export default store;
-export * from '../features/auth/authSlice';
+export * from "../features/auth/authSlice";
