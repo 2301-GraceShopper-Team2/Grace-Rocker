@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { editUser, fetchSingleUser } from "./singleUserSlice";
+import { editUser, fetchSingleUser, selectUser } from "./singleUserSlice";
 
 const SingleUser = () => {
   const { id } = useParams();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.singleUser);
+
+  const user = useSelector(selectUser);
+  console.log("user", user);
 
   useEffect(() => {
     dispatch(fetchSingleUser(id));
-  }, [id]);
+  }, [dispatch]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();

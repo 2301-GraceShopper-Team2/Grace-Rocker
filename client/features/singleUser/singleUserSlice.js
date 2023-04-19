@@ -3,6 +3,8 @@ import axios from "axios";
 
 export const fetchSingleUser = createAsyncThunk("user", async (id) => {
   const { data } = await axios.get(`/api/users/${id}`);
+  console.log(data);
+  console.log("hello");
   return data;
 });
 
@@ -18,19 +20,22 @@ export const editUser = createAsyncThunk(
 );
 
 const singleUserSlice = createSlice({
-  name: "user",
+  name: "singleUser",
   initialState: {
-    singleUser: {},
+    // singleUser: [],
   },
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchSingleUser.fulfilled, (state, { payload }) => {
-      state.singleUser = payload;
+    builder.addCase(fetchSingleUser.fulfilled, (state, action) => {
+      return action.payload;
     });
+
     builder.addCase(editUser.fulfilled, (state, { payload }) => {
       state.singleUser = payload;
     });
   },
 });
 
-export default singleUserSlice;
+export const selectUser = (state) => state.singleUser;
+
+export default singleUserSlice.reducer;
