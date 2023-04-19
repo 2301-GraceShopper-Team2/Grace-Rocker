@@ -54,7 +54,7 @@ async function seed() {
     User.create({
       username: "Steel Lopez",
       email: "orci.ut@google.couk",
-      alphanumeric: "JEH02GZV6UH",
+      password: "JEH02GZV6UH",
       isAdmin: false,
     }),
   ]);
