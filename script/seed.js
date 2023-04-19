@@ -27,38 +27,36 @@ async function seed() {
       email: "murphy@gmail.com",
       isAdmin: false,
     }),
-    User.create(
-      {
-        username: "Kuame Mullen",
-        email: "nunc@aol.couk",
-        password: "KPF22DIG3IJ",
-        isAdmin: false,
-      },
-      {
-        username: "Noah Hill",
-        email: "consectetuer@aol.net",
-        password: "CDY85SWF2JX",
-        isAdmin: true,
-      },
-      {
-        username: "Josephine Rodgers",
-        email: "posuere.vulputate.lacus@outlook.com",
-        password: "BQQ77QPN8DQ",
-        isAdmin: false,
-      },
-      {
-        username: "Hedy Norris",
-        email: "congue.a@google.couk",
-        password: "IAE81SPK4OY",
-        isAdmin: false,
-      },
-      {
-        username: "Steel Lopez",
-        email: "orci.ut@google.couk",
-        alphanumeric: "JEH02GZV6UH",
-        isAdmin: false,
-      }
-    ),
+    User.create({
+      username: "Kuame Mullen",
+      email: "nunc@aol.couk",
+      password: "KPF22DIG3IJ",
+      isAdmin: false,
+    }),
+    User.create({
+      username: "Noah Hill",
+      email: "consectetuer@aol.net",
+      password: "CDY85SWF2JX",
+      isAdmin: true,
+    }),
+    User.create({
+      username: "Josephine Rodgers",
+      email: "posuere.vulputate.lacus@outlook.com",
+      password: "BQQ77QPN8DQ",
+      isAdmin: false,
+    }),
+    User.create({
+      username: "Hedy Norris",
+      email: "congue.a@google.couk",
+      password: "IAE81SPK4OY",
+      isAdmin: false,
+    }),
+    User.craete({
+      username: "Steel Lopez",
+      email: "orci.ut@google.couk",
+      alphanumeric: "JEH02GZV6UH",
+      isAdmin: false,
+    }),
   ]);
 
   const products = await Promise.all([
@@ -129,15 +127,19 @@ async function seed() {
   const orders = await Promise.all([
     Order.create({
       isFulfilled: true,
+      userId: 1,
     }),
     Order.create({
       isFulfilled: false,
+      userId: 1,
     }),
     Order.create({
       isFulfilled: false,
+      userId: 3,
     }),
     Order.create({
       isFulfilled: true,
+      userId: 4,
     }),
   ]);
 
@@ -164,10 +166,7 @@ async function seed() {
   );
   console.log(`seeded successfully`);
   return {
-    users: {
-      cody: users[0],
-      murphy: users[1],
-    },
+    users,
     products,
     orders,
     orderProducts,
