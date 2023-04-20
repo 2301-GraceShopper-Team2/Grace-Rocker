@@ -52,6 +52,18 @@ async function seed() {
       isAdmin: false,
     }),
     User.create({
+      username: "admin",
+      email: "bigboss@money.com",
+      password: "admin",
+      isAdmin: true,
+    }),
+    User.create({
+      username: "user",
+      email: "underling@pennies.org",
+      password: "user",
+      isAdmin: false,
+    }),
+    User.create({
       username: "Steel Lopez",
       email: "orci.ut@google.couk",
       password: "JEH02GZV6UH",

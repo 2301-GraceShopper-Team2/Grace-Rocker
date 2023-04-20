@@ -28,12 +28,11 @@ const AppRoutes = () => {
     <div>
       {isLoggedIn ? (
         <Routes>
-          <Route path="/*" element={<Home />} />
           <Route to="/home" element={<Home />} />
+          <Route path="/*" element={<Home />} />
         </Routes>
       ) : (
         <Routes>
-          <Route path="/*" element={<Home />} />
           <Route
             path="/login"
             element={<AuthForm name="login" displayName="Login" />}
@@ -56,6 +55,7 @@ const AppRoutes = () => {
           <Route path="/createProduct" element={<CreateProduct />} />
 
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/*" element={<Home />} />
         </Routes>
       )}
     </div>
