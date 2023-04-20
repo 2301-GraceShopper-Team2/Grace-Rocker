@@ -3,13 +3,27 @@ const {
   models: { Order, Product, User, Order_Products },
 } = require("../db");
 
-//Get all carts for a user
+//Get all carts for a user (Order History)
 
+router.get("user/:id/orders", async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const orders = await Order.findAll({
+      where: { userId:id, isFulfilled: true },
+      include: [{ model: Product, through: Order_Products }],
+    });
+    res.json(orders);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// single cart for a user
 router.get("user/:id/cart", async (req, res, next) => {
   try {
     const id = req.params.id;
     const cart = await Order.findAll({
-      where: { id },
+      where: { userId:id, isFulfilled: false },
       include: [{ model: Product, through: Order_Products }],
     });
     res.json(cart);
@@ -23,7 +37,20 @@ router.get("user/:id/cart", async (req, res, next) => {
 router.post("/user/:id/cart", async (req, res, next) => {
   try {
     const id = req.params.id;
-    const newCart = await Order.create({ id });
+    const user = User.findByPk(id);
+    const newCart = await user.addOrder({ isFulfilled: false });
+    res.json(newCart);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Change cart status to fulfilled
+router.put("/cart/:id", async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const cart = await Order.findByPk(id);
+    const newCart = await cart.update({ isFulfilled: true });
     res.json(newCart);
   } catch (err) {
     next(err);
@@ -98,4 +125,4 @@ router.delete("/cart/:id/product/:productId", async (req, res, next) => {
   }
 });
 
-router.delete("cart/:id");
+// router.delete("cart/:id");
