@@ -18,6 +18,7 @@ import { me } from "./store";
 
 const AppRoutes = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+  const isAdmin = useSelector((state) => state.auth.me.isAdmin);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,9 +30,11 @@ const AppRoutes = () => {
       {isLoggedIn ? (
         <Routes>
           <Route to="/home" element={<Home />} />
-          <Route path="/createProduct" element={<CreateProduct />} />
-          <Route path="/users" element={<AllUsers />} />
-          <Route path="/users/:id" element={<SingleUser />} />
+          {isAdmin && (
+            <Route path="/createProduct" element={<CreateProduct />} />
+          )}
+          {isAdmin && <Route path="/users" element={<AllUsers />} />}
+          {isAdmin && <Route path="/users/:id" element={<SingleUser />} />}
           <Route path="/products" element={<AllProducts />} />
           <Route path="/products/:id" element={<SingleProduct />} />
           <Route path="/cart" element={<Cart />} />
