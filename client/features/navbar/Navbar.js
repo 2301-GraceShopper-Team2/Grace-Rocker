@@ -14,33 +14,37 @@ const Navbar = () => {
 
   return (
     <div>
-      <h1>
-        <Link to="/home">Grace Rocker</Link>
-      </h1>
-      <nav>
-        {isLoggedIn ? (
-          <div>
-            {/* The navbar will show these links after you log in */}
-            <Link to="/users">Users</Link>
-            <Link to="/createProduct">Create</Link>
-            <Link to="/products">Products</Link>
-            <Link to="/cart">Cart</Link>
-            <button type="button" onClick={logoutAndRedirectHome}>
-              Logout
-            </button>
-          </div>
-        ) : (
-          <div>
-            {/* The navbar will show these links before you log in */}
-            <Link to="/users">Users</Link>
-            <Link to="/createProduct">Create</Link>
-            <Link to="/products">Products</Link>
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
-            <Link to="/cart">Cart</Link>
-          </div>
-        )}
-      </nav>
+      <div
+        style={{
+          display: "flex",
+          "flex-direction": "row",
+          "justify-content": "space-between",
+        }}
+      >
+        <h1>
+          <Link to="/home">Grace Rocker</Link>
+        </h1>
+        <nav>
+          {isLoggedIn ? (
+            <div>
+              {/* The navbar will show these links after you log in */}
+              <Link to="/users">Users</Link> |
+              {<Link to="/createProduct">Create Product</Link>} |
+              <Link to="/products">Products</Link> |<Link to="/cart">Cart</Link>{" "}
+              <button type="button" onClick={logoutAndRedirectHome}>
+                Logout
+              </button>
+            </div>
+          ) : (
+            <div>
+              {/* The navbar will show these links before you log in */}
+              <Link to="/products">Products</Link> |
+              <Link to="/login">Login</Link> |<Link to="/signup">Sign Up</Link>{" "}
+              |<Link to="/cart">Cart</Link>
+            </div>
+          )}
+        </nav>
+      </div>
       <hr />
     </div>
   );
