@@ -4,50 +4,64 @@ import { useParams } from "react-router-dom";
 import { editUser, fetchSingleUser, selectUser } from "./singleUserSlice";
 
 const SingleUser = () => {
-  const { id } = useParams();
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
   const dispatch = useDispatch();
+  const { id } = useParams();
+  const [username, setUsername] = useState("username");
+  const [email, setEmail] = useState("email@address.com");
 
   const user = useSelector(selectUser);
-  console.log("user", user);
 
   useEffect(() => {
-    dispatch(fetchSingleUser(id));
-  }, [dispatch]);
+    dispatch(fetchSingleUser(id)).then(() => {
+      setUsername(user.username);
+      setEmail(user.email);
+    });
+  }, [dispatch, id, user.username, user.email]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    dispatch(editUser({ id, username, email }));
-    setUsername("");
-    setEmail("");
+    dispatch(editUser({ id, username, email })).then(() => {
+      dispatch(fetchSingleUser(id));
+    });
   };
 
   return (
     <>
       <div>
-        <h2>Name: {user.username}</h2>
-        <h4>Email: {user.email}</h4>
+        <h2>Information for {user.username}</h2>
+        <h3>{user.email}</h3>
+        {user.orders && (
+          <div>
+            <h4>Your Orders</h4>
+            {user.orders &&
+              user.orders.map((order) => {
+                return (
+                  <div key={order.id}>
+                    {JSON.stringify(order.id)}:{" "}
+                    {order.isFulfilled ? `completed` : `active`}
+                  </div>
+                );
+              })}
+          </div>
+        )}
       </div>
-      <h2>Update Info</h2>
+      <h2>Update User Info</h2>
       <form id="editUser" onSubmit={handleSubmit}>
-        <label htmlFor="username"></label>
-
+        <label htmlFor="username">Username:</label>
         <input
-          placeholder="username"
           name="username"
+          placeholder="username"
           value={username}
           onChange={(evt) => setUsername(evt.target.value)}
         />
 
         <label htmlFor="email"></label>
         <input
-          placeholder="Email"
           name="email"
+          placeholder="email"
           value={email}
           onChange={(evt) => setEmail(evt.target.value)}
         />
-
         <button type="submit">Submit</button>
       </form>
     </>
