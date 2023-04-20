@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { fetchAllProductsAsync, selectProducts } from "./AllProductsSlice"; //case is weird
 
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAllProductsAsync } from './AllProductsSlice'; //case is weird
+import { selectProducts } from './AllProductsSlice';
+import { Link } from 'react-router-dom';
 const AllProducts = () => {
   const dispatch = useDispatch();
   const products = useSelector(selectProducts); // state.allProducts.products is the name of the slice of state in the store
@@ -17,9 +18,10 @@ const AllProducts = () => {
       <ul>
         {products.map((product) => (
           <li key={product.id}>
-            <h4>
-              <Link to={`/products/${product.id}`}>{product.name}</Link>
-            </h4>
+            <Link to={`/products/${product.id}`}>
+              <h4>{product.name}</h4>
+            </Link>
+
             <p>{product.description}</p>
             <p>Price: ${product.price}</p>
             <p>SKU: {product.SKU}</p>
