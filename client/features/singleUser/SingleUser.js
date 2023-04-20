@@ -20,6 +20,12 @@ const SingleUser = () => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    if (username === "") {
+      setUsername(user.username);
+    }
+    if (email === "") {
+      setEmail(user.email);
+    }
     dispatch(editUser({ id, username, email })).then(() => {
       dispatch(fetchSingleUser(id));
     });
@@ -28,12 +34,12 @@ const SingleUser = () => {
   return (
     <>
       <div>
-        <h2>Information for {user.username}</h2>
+        <h2>User Profile for {user.username}</h2>
         <h3>{user.email}</h3>
         {user.orders && (
           <div>
-            <h4>Your Orders</h4>
-            {user.orders &&
+            <h4>Your Orders (needs orders endpoint for completion)</h4>
+            {user.orders && user.orders.length > 0 ? (
               user.orders.map((order) => {
                 return (
                   <div key={order.id}>
@@ -41,7 +47,10 @@ const SingleUser = () => {
                     {order.isFulfilled ? `completed` : `active`}
                   </div>
                 );
-              })}
+              })
+            ) : (
+              <div>no current orders</div>
+            )}
           </div>
         )}
       </div>
