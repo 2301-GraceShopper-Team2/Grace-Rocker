@@ -29,6 +29,13 @@ const AppRoutes = () => {
       {isLoggedIn ? (
         <Routes>
           <Route to="/home" element={<Home />} />
+          <Route path="/createProduct" element={<CreateProduct />} />
+          <Route path="/users" element={<AllUsers />} />
+          <Route path="/users/:id" element={<SingleUser />} />
+          <Route path="/products" element={<AllProducts />} />
+          <Route path="/products/:id" element={<SingleProduct />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="/*" element={<Home />} />
         </Routes>
       ) : (
@@ -41,19 +48,9 @@ const AppRoutes = () => {
             path="/signup"
             element={<AuthForm name="signup" displayName="Sign Up" />}
           />
-
-          <Route path="/users" element={<AllUsers />} />
-
-          <Route path="/users/:id" element={<SingleUser />} />
-
           <Route path="/products" element={<AllProducts />} />
-
           <Route path="/products/:id" element={<SingleProduct />} />
-
           <Route path="/cart" element={<Cart />} />
-
-          <Route path="/createProduct" element={<CreateProduct />} />
-
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/*" element={<Home />} />
         </Routes>

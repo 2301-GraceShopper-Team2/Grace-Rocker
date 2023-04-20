@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllProductsAsync } from './AllProductsSlice'; //case is weird
@@ -20,6 +21,7 @@ const AllProducts = () => {
             <Link to={`/products/${product.id}`}>
               <h4>{product.name}</h4>
             </Link>
+
             <p>{product.description}</p>
             <p>Price: ${product.price}</p>
             <p>SKU: {product.SKU}</p>
