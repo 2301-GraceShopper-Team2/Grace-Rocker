@@ -17,13 +17,13 @@ router.get("/", async (req, res, next) => {
 });
 
 router.get("/:id", async (req, res, next) => {
+  const id = req.params.id;
   try {
-    const users = await User.findAll({
-      where: { id: req.params.id },
+    const user = await User.findByPk(id, {
       attributes: ["id", "username", "email", "isAdmin"],
       include: Order,
     });
-    res.json(users);
+    res.json(user);
   } catch (err) {
     next(err);
   }
