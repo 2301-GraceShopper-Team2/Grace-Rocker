@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAllProductsAsync } from "./allProductsSlice.js"; //case is weird
-import { selectProducts } from "./allProductsSlice.js";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAllProductsAsync } from './allProductsSlice.js'; //case is weird
+import { deleteProductAsync } from './allProductsSlice.js';
+import { selectProducts } from './allProductsSlice.js';
+import { Link, useNavigate } from 'react-router-dom';
 
 const AllProducts = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const AllProducts = () => {
               <p>Price: ${product.price}</p>
               <p>SKU: {product.SKU}</p>
               <img src={product.imageURL} />
+              <button>Add To Cart</button>
               {isAdmin && (
                 <button
                   onClick={() => {
