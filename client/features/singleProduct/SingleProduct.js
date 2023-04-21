@@ -31,7 +31,7 @@ const SingleProduct = () => {
     const update = { id };
     if (name) update.name = name;
     if (description) update.description = description;
-    if (price) update.price = parseInt(price);
+    if (price) update.price = parseFloat(price);
     if (SKU) update.SKU = SKU;
     if (imageURL) update.imageURL = imageURL;
     dispatch(editProductAsync(update));
@@ -78,7 +78,7 @@ const SingleProduct = () => {
             <label>Price</label>
             <input
               name="price"
-              type="number"
+              type="text"
               value={price}
               onChange={(evt) => {
                 setPrice(evt.target.value);
