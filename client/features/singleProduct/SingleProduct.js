@@ -3,19 +3,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { editProductAsync, selectSingleProduct } from './singleProductSlice';
 import { fetchSingleProductAsync } from './singleProductSlice';
+import store from '../../app/store';
 
 const SingleProduct = () => {
   const dispatch = useDispatch();
+
   const { id } = useParams();
+
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [SKU, setSKU] = useState('');
   const [price, setPrice] = useState('');
   const [imageURL, setImageURL] = useState('');
 
+  const isAdmin = useSelector((state) => state.auth.me.isAdmin);
   const product = useSelector(selectSingleProduct);
 
   useEffect(() => {
+    dispatch(fetch);
     dispatch(fetchSingleProductAsync(id));
     setName(product.name);
   }, [dispatch]);
@@ -45,62 +50,64 @@ const SingleProduct = () => {
         <p>SKU: {product.SKU}</p>
         <img />
       </div>
-      <h2>Update Info:</h2>
-      <form id="editProduct" onSubmit={handleSubmit}>
-        <label>Name</label>
-        <input
-          placeholder="name"
-          name="name"
-          value={name}
-          onChange={(evt) => {
-            setName(evt.target.value);
-          }}
-        ></input>
+      {isAdmin && (
+        <div id="updateProduct">
+          <h2>Update Info:</h2>
+          <form id="editProduct" onSubmit={handleSubmit}>
+            <label>Name</label>
+            <input
+              name="name"
+              type="text"
+              value={name}
+              onChange={(evt) => {
+                setName(evt.target.value);
+              }}
+            ></input>
 
-        <label>Description</label>
-        <textarea
-          placeholder="description"
-          name="description"
-          value={description}
-          onChange={(evt) => {
-            setDescription(evt.target.value);
-          }}
-        ></textarea>
+            <label>Description</label>
+            <textarea
+              name="description"
+              type="text"
+              value={description}
+              onChange={(evt) => {
+                setDescription(evt.target.value);
+              }}
+            ></textarea>
 
-        <label>Price</label>
-        <input
-          placeholder="price"
-          name="price"
-          value={price}
-          onChange={(evt) => {
-            if (parseInt(evt.target.value)) {
-              setPrice(evt.target.value);
-            }
-          }}
-        ></input>
+            <label>Price</label>
+            <input
+              name="price"
+              type="number"
+              value={price}
+              onChange={(evt) => {
+                setPrice(evt.target.value);
+              }}
+            ></input>
 
-        <label>SKU</label>
-        <input
-          placeholder="SKU"
-          name="SKU"
-          value={SKU}
-          onChange={(evt) => {
-            setSKU(evt.target.value);
-          }}
-        ></input>
+            <label>SKU</label>
+            <input
+              name="SKU"
+              type="text"
+              value={SKU}
+              onChange={(evt) => {
+                setSKU(evt.target.value);
+              }}
+            ></input>
 
-        <label>Image URL</label>
-        <input
-          placeholder="image URL"
-          name="imageURL"
-          value={imageURL}
-          onChange={(evt) => {
-            setimageURL(evt.target.value);
-          }}
-        ></input>
+            <label>Image URL</label>
+            <input
+              name="imageURL"
+              type="text"
+              value={imageURL}
+              onChange={(evt) => {
+                setimageURL(evt.target.value);
+              }}
+            ></input>
 
-        <button type="submit">Submit</button>
-      </form>
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      )}
     </>
   );
 };
