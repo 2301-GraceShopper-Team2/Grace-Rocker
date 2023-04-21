@@ -144,13 +144,13 @@ router.post("/cart/:orderId/product/:productId", async (req, res, next) => {
 
 //Update cart with deleting items
 
-router.delete("/cart/:id/product/:productId", async (req, res, next) => {
+router.delete("/cart/:orderId/product/:productId", async (req, res, next) => {
   try {
-    const id = req.params.id;
+    const orderId = req.params.orderId;
     const productId = req.params.productId;
 
     const productCart = await Order_Products.findOne({
-      where: { orderId: id, productId },
+      where: { orderId: orderId, productId },
     });
     if (productCart) {
       await productCart.destroy();
