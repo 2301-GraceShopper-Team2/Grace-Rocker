@@ -69,8 +69,38 @@ async function seed() {
       password: "JEH02GZV6UH",
       isAdmin: false,
     }),
+    User.create({
+      username: "Jimmy Page",
+      email: "jpage@zeppelin.com",
+      password: "stairwaytoheaven",
+      isAdmin: false,
+    }),
+    User.create({
+      username: "Robert Plant",
+      email: "rplant@zeppelin.com",
+      password: "sinceibeenlovingyou",
+      isAdmin: false,
+    }),
+    User.create({
+      username: "John Paul Jones",
+      email: "jpjones@zeppelin.com",
+      password: "noquarter",
+      isAdmin: false,
+    }),
+    User.create({
+      username: "John Bonham",
+      email: "jbonham@zeppelin.com",
+      password: "whentheleveebreaks",
+      isAdmin: false,
+    }),
+    User.create({
+      username: "Wayne Coyne",
+      email: "wcoyne@flaminglips.com",
+      password: "yoshimibattles",
+      isAdmin: false,
+    }),
+    //6 more till 20
   ]);
-
   const products = await Promise.all([
     Product.create({
       name: "SE Silver Sky",
@@ -135,6 +165,28 @@ async function seed() {
       imageURL:
         "https://images.reverb.com/image/upload/s--z1JMQymC--/a_0/f_auto,t_supersize/v1665773786/k8zomj8tqxrtihbvugud.jpg",
     }),
+    Product.create({
+      name: "Peavy Predator Plus",
+      description:
+        "PEAVEY produced the PREDATOR PLUS between 1999 and 2002. The design is a combination of Stratocaster and Wolfgang.  The Peavey Predator Plus has a short 3-on-a-side headstock with ergonomic tuner placement and straight string pull. To balance up the reduced neck weight, the solid poplar body is styled for better ergonomics and balance by reducing the length of the lower body horn.",
+      SKU: "FHR33016",
+      price: 299.99,
+    }),
+    Product.create({
+      name: "Alvarez AF66CESHB Folk Acoustic-Electric Guitar Shadow Burst",
+      description:
+        "Features a solid A+ western red cedar top mahogany back and sides with a high gloss finish. Pickups are rocking Sys250 3-band EQ with a tuner. Features state-of-the-art FST2M forward shifted scalloped bracing.",
+      SKU: "HH7J39F",
+      price: 549.99,
+    }),
+    Product.create({
+      name: "Jerry Cantrell Les Paul Custom Prophecy",
+      description:
+        "Made to the Alice in Chains guitarist's specifications. It represents the perfect blend of modern and traditional features. It is equipped with a double-bound mahogany body with a maple cap and Ultra Modern weight relief for tone and comfort.",
+      SKU: "7AI9RO3C",
+      price: 1149.0,
+    }),
+    //10 more till 20
   ]);
   const orders = await Promise.all([
     Order.create({
@@ -153,8 +205,55 @@ async function seed() {
       isFulfilled: true,
       userId: 4,
     }),
+    Order.create({
+      isFulfilled: false,
+      userId: 5,
+    }),
+    Order.create({
+      isFulfilled: false,
+      userId: 6,
+    }),
+    Order.create({
+      isFulfilled: false,
+      userId: 7,
+    }),
+    Order.create({
+      isFulfilled: true,
+      userId: 8,
+    }),
+    Order.create({
+      isFulfilled: false,
+      userId: 9,
+    }),
+    Order.create({
+      isFulfilled: false,
+      userId: 10,
+    }),
+    Order.create({
+      isFulfilled: false,
+      userId: 11,
+    }),
+    Order.create({
+      isFulfilled: true,
+      userId: 12,
+    }),
+    Order.create({
+      isFulfilled: false,
+      userId: 13,
+    }),
+    Order.create({
+      isFulfilled: false,
+      userId: 14,
+    }),
+    Order.create({
+      isFulfilled: false,
+      userId: 2,
+    }),
+    Order.create({
+      isFulfilled: true,
+      userId: 2,
+    }),
   ]);
-
   const orderProducts = await Promise.all([
     Order_Products.create({
       quantity: 1,
@@ -171,10 +270,104 @@ async function seed() {
       orderId: 3,
       productId: 3,
     }),
+    Order_Products.create({
+      quantity: 1,
+      orderId: 4,
+      productId: 4,
+    }),
+    Order_Products.create({
+      quantity: 2,
+      orderId: 1,
+      productId: 5,
+    }),
+    Order_Products.create({
+      quantity: 1,
+      orderId: 2,
+      productId: 7,
+    }),
+    Order_Products.create({
+      quantity: 1,
+      orderId: 5,
+      productId: 5,
+    }),
+    Order_Products.create({
+      quantity: 1,
+      orderId: 6,
+      productId: 6,
+    }),
+    Order_Products.create({
+      quantity: 1,
+      orderId: 7,
+      productId: 7,
+    }),
+    Order_Products.create({
+      quantity: 1,
+      orderId: 8,
+      productId: 8,
+    }),
+    Order_Products.create({
+      quantity: 1,
+      orderId: 9,
+      productId: 9,
+    }),
+    Order_Products.create({
+      quantity: 1,
+      orderId: 10,
+      productId: 10,
+    }),
+    Order_Products.create({
+      quantity: 2,
+      orderId: 11,
+      productId: 2,
+    }),
+    Order_Products.create({
+      quantity: 2,
+      orderId: 12,
+      productId: 2,
+    }),
+    Order_Products.create({
+      quantity: 2,
+      orderId: 13,
+      productId: 2,
+    }),
+    Order_Products.create({
+      quantity: 2,
+      orderId: 14,
+      productId: 2,
+    }),
+    Order_Products.create({
+      quantity: 2,
+      orderId: 15,
+      productId: 2,
+    }),
+    Order_Products.create({
+      quantity: 2,
+      orderId: 16,
+      productId: 2,
+    }),
+    Order_Products.create({
+      quantity: 1,
+      orderId: 3,
+      productId: 9,
+    }),
+    Order_Products.create({
+      quantity: 1,
+      orderId: 4,
+      productId: 8,
+    }),
+    Order_Products.create({
+      quantity: 1,
+      orderId: 5,
+      productId: 7,
+    }),
+    Order_Products.create({
+      quantity: 1,
+      orderId: 6,
+      productId: 5,
+    }),
   ]);
-
   console.log(
-    `seeded ${users.length} users, ${products.length} products, ${orders.length} orders, and ${orderProducts} orders of products`
+    `seeded ${users.length} users, ${products.length} products, ${orders.length} orders, and ${orderProducts} orders of products`,
   );
   console.log(`seeded successfully`);
   return {
