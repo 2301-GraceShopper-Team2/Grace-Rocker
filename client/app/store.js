@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
-import allProductsReducer from "../features/allProducts/AllProductsSlice.js";
+import allProductsReducer from "../features/allProducts/allProductsSlice.js";
 import allUsersReducer from "../features/allUsers/allUsersSlice";
 import authReducer from "../features/auth/authSlice";
 import singleUserReducer from "../features/singleUser/singleUserSlice.js";

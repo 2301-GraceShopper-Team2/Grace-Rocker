@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import AllProducts from "../features/allProducts/AllProducts.js";
-import AllUsers from "../features/allUsers/allUsers.js";
+import AllUsers from "../features/allUsers/AllUsers.js";
 import AuthForm from "../features/auth/AuthForm";
 import Cart from "../features/cart/Cart.js";
 import Checkout from "../features/checkout/Checkout.js";

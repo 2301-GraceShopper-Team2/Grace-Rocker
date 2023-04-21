@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllProductsAsync } from "./AllProductsSlice.js"; //case is weird
-import { selectProducts } from "./AllProductsSlice.js";
+import { fetchAllProductsAsync } from "./allProductsSlice.js"; //case is weird
+import { selectProducts } from "./allProductsSlice.js";
 import { Link, useNavigate } from "react-router-dom";
 
 const AllProducts = () => {

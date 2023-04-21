@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addProductAsync } from "../allProducts/AllProductsSlice.js";
+import { addProductAsync } from "../allProducts/allProductsSlice.js";
 import { useNavigate } from "react-router-dom";
 
 const CreateProduct = () => {
