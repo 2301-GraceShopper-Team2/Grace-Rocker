@@ -18,8 +18,8 @@ const Navbar = () => {
       <div
         style={{
           display: "flex",
-          "flex-direction": "row",
-          "justify-content": "space-between",
+          flexDirection: "row",
+          justifyContent: "space-between",
         }}
       >
         <h1>

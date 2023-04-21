@@ -7,8 +7,8 @@ const Footer = () => {
       <div
         style={{
           display: "flex",
-          "flex-direction": "row",
-          "justify-content": "space-evenly",
+          flexDirection: "row",
+          justifyContent: "space-evenly",
         }}
       >
         <div>Peter W.</div>
