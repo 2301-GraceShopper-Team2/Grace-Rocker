@@ -1,6 +1,6 @@
 // This is the cart component
 // path: client/features/cart/Cart.js
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectCart,
@@ -12,11 +12,17 @@ const Cart = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector(selectCart);
   const me = useSelector((state) => state.auth.me);
+  const [cart, setCart] = useState([]);
+
+  const assignCart = async () => {
+    if (me && me.id) {
+      await dispatch(fetchCartAsync(me.id));
+      setCart(cartItems);
+    }
+  };
 
   useEffect(() => {
-    if (me && me.id) {
-      dispatch(fetchCartAsync(me.id));
-    }
+    assignCart();
   }, [dispatch, me]);
 
   const removeFromCart = (productId) => {
@@ -38,9 +44,10 @@ const Cart = () => {
   return (
     <div>
       <h1>Cart</h1>
+      {JSON.stringify(cart)}
       <ul>
-        {Array.isArray(cartItems) &&
-          cartItems.map((item) => (
+        {cart &&
+          cart.map((item) => (
             <li key={item.id}>
               {item.name} - ${item.price} - {item.order_product.quantity}{" "}
               <button onClick={() => removeFromCart(item.id)}>Remove</button>
