@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { editProductAsync, selectSingleProduct } from './singleProductSlice';
 import { fetchSingleProductAsync } from './singleProductSlice';
-import store from '../../app/store';
+import { deleteProductAsync } from '../allProducts/AllProductsSlice';
 
 const SingleProduct = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const [name, setName] = useState('');
@@ -40,6 +40,8 @@ const SingleProduct = () => {
     setPrice('');
     setImageURL();
   };
+
+
 
   return (
     <>
