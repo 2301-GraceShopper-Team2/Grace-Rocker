@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
-import { editProductAsync, selectSingleProduct } from './singleProductSlice';
-import { fetchSingleProductAsync } from './singleProductSlice';
-import { deleteProductAsync } from '../allProducts/AllProductsSlice';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { editProductAsync, selectSingleProduct } from "./singleProductSlice";
+import { fetchSingleProductAsync } from "./singleProductSlice";
 
 const SingleProduct = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [SKU, setSKU] = useState('');
-  const [price, setPrice] = useState('');
-  const [imageURL, setImageURL] = useState('');
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [SKU, setSKU] = useState("");
+  const [price, setPrice] = useState("");
+  const [imageURL, setImageURL] = useState("");
 
   const isAdmin = useSelector((state) => state.auth.me.isAdmin);
   const product = useSelector(selectSingleProduct);
@@ -34,14 +33,12 @@ const SingleProduct = () => {
     if (SKU) update.SKU = SKU;
     if (imageURL) update.imageURL = imageURL;
     dispatch(editProductAsync(update));
-    setName('');
-    setDescription('');
-    setSKU('');
-    setPrice('');
+    setName("");
+    setDescription("");
+    setSKU("");
+    setPrice("");
     setImageURL();
   };
-
-
 
   return (
     <>
