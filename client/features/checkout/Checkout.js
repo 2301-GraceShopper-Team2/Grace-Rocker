@@ -1,13 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-//this renders most recently updated order for a user that has isFulfilled=true?
-//or does it get
+import { useNavigate } from "react-router-dom";
+
 const Checkout = () => {
   const { id } = useParams();
   const [order, setOrder] = useState({});
+  const navigate = useNavigate();
+
   const fetchOrder = async () => {
-    const { data } = await axios.get(`/orders/${id}`);
+    const { data } = await axios.get(`/api/orders/${id}`);
     setOrder(data);
   };
 
@@ -15,18 +17,56 @@ const Checkout = () => {
     fetchOrder();
   }, []);
 
+  const renderTotal = (order) => {
+    let runningTotal = 0;
+    order.products.forEach((product) => {
+      runningTotal += product.price * product.order_products.quantity;
+    });
+    return runningTotal;
+  };
+
   return (
     <div>
-      {JSON.stringify(order)}
       <h2>Checkout</h2>
-      <h3>Order #{id} successful!</h3>
-      <p>Mapped Product name</p>
-      <p>Mapped Product quantity</p>
-      <p>Mapped Product price</p>
-      <p>Address to ship to</p>
-      <p>Total price of order</p>
-      <button>Cancel Order</button>
-      <button>Back to Home</button>
+      {order && order.isFulfilled === true ? (
+        <h3>Order #{id} successful!</h3>
+      ) : (
+        <h3>There was a problem processing your order.</h3>
+      )}
+      {order && order.products && (
+        <table width="80%">
+          <tr key="header">
+            <td>PRODUCT</td>
+            <td>QTY</td>
+            <td>PRICE</td>
+          </tr>
+          {order.products.map((product) => {
+            return (
+              <tr key={product.id}>
+                <td>{product.name}</td>
+                <td>{product.order_products.quantity}</td>
+                <td>${product.price * product.order_products.quantity}</td>
+              </tr>
+            );
+          })}
+        </table>
+      )}
+      {/* <p>Address to ship to</p> */}
+      {order && order.products && <p>Total price: ${renderTotal(order)}</p>}
+      {order && order.isFulfilled && (
+        <div>
+          <button>Cancel Order</button>
+        </div>
+      )}
+      {order && !order.isFulfilled && (
+        <div>
+          <button onClick={() => navigate("/cart")}>Return to Cart</button>
+        </div>
+      )}
+
+      <div>
+        <button onClick={() => navigate("/")}>Back to Home</button>
+      </div>
     </div>
   );
 };

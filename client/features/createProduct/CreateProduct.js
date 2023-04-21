@@ -73,7 +73,6 @@ const CreateProduct = () => {
           name="imageURL"
           type="text"
           onChange={(evt) => {
-            console.log(evt.target.value);
             setImageURL(evt.target.value);
           }}
         ></input>

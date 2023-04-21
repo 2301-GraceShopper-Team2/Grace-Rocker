@@ -19,7 +19,6 @@ router.get('/featured', async (req, res, next) => {
       limit: 3,
       order: [['updatedAt', 'DESC']],
     });
-    console.log('api products ', products);
     if (!products.length) {
       res.status(404).send('Error 404 Error Loading Featured Products');
     }
