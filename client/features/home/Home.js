@@ -11,7 +11,6 @@ const Home = (props) => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const fetchFeaturedProducts = async () => {
     const { data } = await axios.get(`/api/products/featured`);
-    console.log("data: ", data);
     setFeaturedProducts(data);
   };
 
