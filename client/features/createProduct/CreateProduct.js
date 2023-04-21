@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addProductAsync } from "../allProducts/allProductsSlice.js";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addProductAsync } from '../allProducts/allProductsSlice.js';
+import { useNavigate } from 'react-router-dom';
 
 const CreateProduct = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [name, setName] = useState();
-  const [description, setDescription] = useState("");
-  const [SKU, setSKU] = useState("");
-  const [price, setPrice] = useState("");
-  const [imageURL, setImageURL] = useState("");
+  const [description, setDescription] = useState('');
+  const [SKU, setSKU] = useState('');
+  const [price, setPrice] = useState('');
+  const [imageURL, setImageURL] = useState('');
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -18,14 +18,14 @@ const CreateProduct = () => {
       const newProduct = {
         name,
         description,
-        price: parseInt(price),
+        price: parseFloat(price),
         SKU,
       };
 
       dispatch(addProductAsync(newProduct));
-      navigate("/products");
+      navigate('/products');
     } else {
-      alert("Please complete all required fields before submitting");
+      alert('Please complete all required fields before submitting');
     }
   };
 
@@ -51,9 +51,10 @@ const CreateProduct = () => {
         ></textarea>
 
         <label>Price</label>
+        {/* need input validation on price to make sure it's only 2 decimal places */}
         <input
           name="price"
-          type="number"
+          type="text"
           onChange={(evt) => {
             setPrice(evt.target.value);
           }}

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllProductsAsync } from './allProductsSlice.js'; //case is weird
 import { deleteProductAsync } from './allProductsSlice.js';
@@ -6,6 +6,7 @@ import { selectProducts } from './allProductsSlice.js';
 import { Link, useNavigate } from 'react-router-dom';
 
 const AllProducts = () => {
+  const [numItems, setNumItems] = useState(1);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isAdmin = useSelector((state) => state.auth.me.isAdmin);
@@ -29,12 +30,30 @@ const AllProducts = () => {
               <p>Price: ${product.price}</p>
               <p>SKU: {product.SKU}</p>
               <img src={product.imageURL} />
+              <label>Qty</label>
+              <p>{numItems}</p>
+              <button
+                onClick={() => {
+                  if (numItems > 1) {
+                    setNumItems(numItems - 1);
+                  }
+                }}
+              >
+                -
+              </button>
+              <button
+                onClick={() => {
+                  setNumItems(numItems + 1);
+                }}
+              >
+                +
+              </button>
+
               <button>Add To Cart</button>
               {isAdmin && (
                 <button
                   onClick={() => {
                     dispatch(deleteProductAsync(product.id));
-                    navigate('/products');
                   }}
                 >
                   Delete Product
