@@ -21,8 +21,8 @@ export const addProductAsync = createAsyncThunk(
         name,
         description,
         price,
-        imageURL,
         SKU,
+        imageURL,
       });
       return data;
     } catch (err) {
