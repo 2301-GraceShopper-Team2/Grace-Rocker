@@ -5,9 +5,9 @@ import axios from "axios";
 
 export const fetchCartAsync = createAsyncThunk(
     "cart/fetchCart",
-    async () => {
+    async (userId) => {
         try {
-            const { data } = await axios.get("/api/cart");
+            const { data } = await axios.get(`/user/${userId}/cart`);
             return data;
         } catch (err) {
             return err;

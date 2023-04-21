@@ -35,7 +35,8 @@ export const deleteProductAsync = createAsyncThunk(
   'products/deleteProduct',
   async (id) => {
     try {
-      await axios.delete(`/api/products${id}`);
+      await axios.delete(`/api/products/${id}`);
+      return id;
     } catch (err) {
       return err;
     }
@@ -50,15 +51,21 @@ const allProductsSlice = createSlice({
     builder.addCase(fetchAllProductsAsync.fulfilled, (state, action) => {
       return action.payload;
     });
+
     builder.addCase(addProductAsync.fulfilled, (state, action) => {
       state.push(action.payload);
     });
     builder.addCase(deleteProductAsync.fulfilled, (state, action) => {
       return state.filter((product) => product.id != action.payload);
     });
+    builder.addCase(deleteProductAsync.rejected, (state, action) => {
+      alert(action.payload.message);
+    });
   },
 });
 
-export const selectProducts = (state) => state.allProducts;
+export const selectProducts = (state) => {
+  return state.allProducts;
+};
 
 export default allProductsSlice.reducer;
