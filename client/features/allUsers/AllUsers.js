@@ -10,14 +10,20 @@ const AllUsers = () => {
     dispatch(fetchAllUsersAsync());
   }, [dispatch]);
 
+  // const fetchOrder = async () => {
+  //   const { data } = await axios.get(`/api/orders/${id}`);
+  //   setOrder(data);
+  // };
+
   return (
     <div>
-      <h2>All Users (Admin Only)</h2>
+      <h2>Admin Control Panel: Users</h2>
       <table width="50%">
         <tr>
           <td> </td>
           <td>USERNAME</td>
           <td>EMAIL</td>
+          <td>ORDERS</td>
           <td>CART</td>
         </tr>
         {allUsers &&
@@ -29,7 +35,12 @@ const AllUsers = () => {
                   <Link to={`/users/${user.id}`}>{user.username}</Link>
                 </td>
                 <td>{user.email}</td>
-                <td>{user.orders.length} items</td>
+                <td>
+                  {user.orders.filter((order) => order.isFulfilled).length}
+                </td>
+                <td>
+                  {user.orders.filter((order) => !order.isFulfilled).length}
+                </td>
               </tr>
             );
           })}
