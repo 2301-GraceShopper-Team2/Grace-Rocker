@@ -7,9 +7,10 @@ import { selectCart, fetchCartAsync, deleteProductFromCartAsync } from "./cartSl
 const Cart = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector(selectCart);
+  const me = useSelector((state) => state.auth.me);
 
   useEffect(() => {
-    dispatch(fetchCartAsync());
+    dispatch(fetchCartAsync(userId)); // pass in the userId
   }, [dispatch]);
 
   const removeFromCart = (productId) => {
