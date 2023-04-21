@@ -119,28 +119,28 @@ router.post("/cart/:orderId/product/:productId", async (req, res, next) => {
   }
 });
 
-// Change quantity in cart
-// router.put("/cart/:id/product/:productId", async (req, res, next) => {
-//   try {
-//     const id = req.params.id;
-//     const productId = req.params.productId;
-//     const { quantity } = req.body;
+//Change quantity in cart
+router.put("/cart/:orderId/product/:productId", async (req, res, next) => {
+  try {
+    const orderId = req.params.orderId;
+    const productId = req.params.productId;
+    const { quantity } = req.body;
 
-//     const productInCart = await Order_Products.findOne({
-//       where: { orderId: id, productId },
-//     });
+    const productInCart = await Order_Products.findOne({
+      where: { orderId: orderId, productId },
+    });
 
-//     if (productInCart) {
-//       productInCart.quantity = quantity;
-//       await productInCart.save();
-//       res.send("Product Quantity Updated");
-//     } else {
-//       res.send("Product not found in cart");
-//     }
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+    if (productInCart) {
+      productInCart.quantity += quantity;
+      await productInCart.save();
+      res.send("Product Quantity Updated");
+    } else {
+      res.send("Product not found in cart");
+    }
+  } catch (err) {
+    next(err);
+  }
+});
 
 //Update cart with deleting items
 
