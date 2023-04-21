@@ -34,7 +34,6 @@ const AllProducts = () => {
                 <button
                   onClick={() => {
                     dispatch(deleteProductAsync(product.id));
-                    navigate('/products');
                   }}
                 >
                   Delete Product
