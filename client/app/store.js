@@ -1,11 +1,11 @@
-import { configureStore } from '@reduxjs/toolkit';
-import logger from 'redux-logger';
-import allProductsReducer from '../features/allProducts/AllProductsSlice';
-import allUsersReducer from '../features/allUsers/allUsersSlice';
-import authReducer from '../features/auth/authSlice';
-import singleUserReducer from '../features/singleUser/singleUserSlice.js';
-import singleProductReducer from '../features/singleProduct/singleProductSlice.js';
-import cartReducer from '../features/cart/cartSlice.js';
+import { configureStore } from "@reduxjs/toolkit";
+import logger from "redux-logger";
+import allProductsReducer from "../features/allProducts/AllProductsSlice.js";
+import allUsersReducer from "../features/allUsers/allUsersSlice";
+import authReducer from "../features/auth/authSlice";
+import singleUserReducer from "../features/singleUser/singleUserSlice.js";
+import singleProductReducer from "../features/singleProduct/singleProductSlice.js";
+import cartReducer from "../features/cart/cartSlice.js";
 
 const store = configureStore({
   reducer: {
@@ -20,4 +20,4 @@ const store = configureStore({
 });
 
 export default store;
-export * from '../features/auth/authSlice';
+export * from "../features/auth/authSlice";
