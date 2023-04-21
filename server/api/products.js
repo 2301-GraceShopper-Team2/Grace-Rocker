@@ -15,6 +15,22 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+router.get("/featured", async (req, res, next) => {
+  try {
+    const products = await Product.findAll({
+      limit: 3,
+      order: [["updatedAt", "DESC"]],
+    });
+    console.log("api products ", products);
+    if (!products.length) {
+      res.status(404).send("Error 404 Error Loading Featured Products");
+    }
+    res.status(200).json(products);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -46,7 +62,7 @@ router.put("/:id", async (req, res, next) => {
     const { id } = req.params;
     const product = await Product.findByPk(id);
     const response = await product.update(req.body);
-   
+
     res.send(response);
   } catch (err) {
     if (err.name === "SequelizeValidationError") {
@@ -73,5 +89,4 @@ router.delete("/:id", async (req, res, next) => {
     next(err);
   }
 });
-
 module.exports = router;
