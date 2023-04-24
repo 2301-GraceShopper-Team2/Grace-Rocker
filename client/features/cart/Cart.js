@@ -1,6 +1,6 @@
 // This is the cart component
 // path: client/features/cart/Cart.js
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteProductFromCartAsync,
@@ -10,7 +10,6 @@ import {
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const [cart, setCart] = useState([]);
   const me = useSelector((state) => state.auth.me);
 
   const cartItems = useSelector(selectCart);
@@ -18,8 +17,6 @@ const Cart = () => {
   const assignCart = async () => {
     if (me && me.id) {
       await dispatch(fetchCartAsync(me.id));
-      console.log;
-      setCart(cartItems);
     }
     //else fetch cart from state
   };
@@ -30,13 +27,13 @@ const Cart = () => {
 
   useEffect(() => {
     assignCart();
-  }, [dispatch, me, assignCart]);
+  }, []);
 
   // check if cartItems is an array using Array.isArray. If an array, use reduce to calculate the total price. If not an array, set the total price to 0.
 
   const totalPrice =
-    cart.length > 0
-      ? cart.reduce((acc, item) => {
+    cartItems.length > 0
+      ? cartItems.reduce((acc, item) => {
           return acc + item.price * item.order_products.quantity;
         }, 0)
       : 0;
@@ -49,10 +46,10 @@ const Cart = () => {
   return (
     <div>
       <h1>Cart</h1>
-      {JSON.stringify(cart)}
+      {/* {JSON.stringify(cartItems)} */}
       <ul>
-        {cart.length > 0 &&
-          cart.map((item) => (
+        {cartItems.length > 0 &&
+          cartItems.map((item) => (
             <li key={item.id}>
               {item.name} - ${item.price} - {item.order_products.quantity}{" "}
               <button onClick={() => removeFromCart(item.id)}>Remove</button>
