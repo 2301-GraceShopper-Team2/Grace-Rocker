@@ -38,6 +38,7 @@ const Cart = () => {
 
   const removeFromCart = (productId) => {
     dispatch(deleteProductFromCartAsync(productId));
+    if (me && me.id) {
   } else {
     // remove the product from the guest cart and update localstorage
     const updatedGuestCart = cartItems.filter((item) => item.id !== productId);
@@ -57,10 +58,10 @@ const Cart = () => {
   //       }, 0)
   //     : 0;
 
-  // check if me exists and has an id. If not, display a message to log in.
-  if (!me || !me.id) {
-    return <div>Please log in to view your cart</div>;
-  }
+  // check if me exists and has an id. If not, display a message to log in. -- Do Not need this anymore because we are using localstorage to store guest cart
+  // if (!me || !me.id) {
+  //   return <div>Please log in to view your cart</div>;
+  // }
 
   return (
     <div>

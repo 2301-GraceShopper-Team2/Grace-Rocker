@@ -75,7 +75,7 @@ export const cartSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCartAsync.fulfilled, (state, action) => {
-      return action.payload;
+      state.userCart = action.payload;
     });
     builder.addCase(addProductToCartAsync.fulfilled, (state, action) => {
       if (Array.isArray(action.payload)) {
