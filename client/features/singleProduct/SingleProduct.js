@@ -132,7 +132,6 @@ const SingleProduct = () => {
 
       <button
         onClick={() => {
-          console.log("Add to cart clicked", id);
           dispatch(addProductToCartAsync(id));
         }}
       >
