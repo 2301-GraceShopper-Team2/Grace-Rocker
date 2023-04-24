@@ -101,7 +101,7 @@ const SingleProduct = () => {
               type="text"
               value={imageURL}
               onChange={(evt) => {
-                setimageURL(evt.target.value);
+                setImageURL(evt.target.value);
               }}
             ></input>
 
