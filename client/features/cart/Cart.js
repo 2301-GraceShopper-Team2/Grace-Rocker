@@ -67,7 +67,7 @@ const Cart = () => {
     <div>
       <h1>Cart</h1>
       <ul>
-        {cart.products &&
+        {cart && cart.products &&
           cart.products.length > 0 &&
           cart.products.map((item) => (
             <li key={item.id}>
