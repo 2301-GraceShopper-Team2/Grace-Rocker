@@ -1,14 +1,14 @@
 // This is the cart component
 // path: client/features/cart/Cart.js
-import axios from "axios";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   deleteProductFromCartAsync,
   fetchCartAsync,
   selectCart,
-} from "./cartSlice";
+} from './cartSlice';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -22,8 +22,8 @@ const Cart = () => {
       await dispatch(fetchCartAsync(me.id));
     } else {
       //else fetch cart from state using localstorage so when guest refreshes page, the cart will still be there
-      const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
-      dispatch({ type: "cart/setGuestCart", payload: guestCart });
+      const guestCart = JSON.parse(localStorage.getItem('guestCart')) || [];
+      dispatch({ type: 'cart/setGuestCart', payload: guestCart });
     }
   };
 
@@ -42,8 +42,8 @@ const Cart = () => {
     } else {
       // remove the product from the guest cart and update localstorage
       const updatedGuestCart = cart.filter((item) => item.id !== productId);
-      localStorage.setItem("guestCart", JSON.stringify(updatedGuestCart));
-      dispatch({ type: "cart/setGuestCart", payload: updatedGuestCart });
+      localStorage.setItem('guestCart', JSON.stringify(updatedGuestCart));
+      dispatch({ type: 'cart/setGuestCart', payload: updatedGuestCart });
     }
   };
 
@@ -71,7 +71,25 @@ const Cart = () => {
           cart.products.length > 0 &&
           cart.products.map((item) => (
             <li key={item.id}>
-              {item.name} - ${item.price} - {item.order_products.quantity}{" "}
+              {item.name} - ${item.price} - {item.order_products.quantity}{' '}
+              {/* <label>Qty</label>
+              <p>{numItems}</p>
+              <button
+                onClick={() => {
+                  if (numItems > 1) {
+                    setNumItems(numItems - 1);
+                  }
+                }}
+              >
+                -
+              </button>
+              <button
+                onClick={() => {
+                  setNumItems(numItems + 1);
+                }}
+              >
+                +
+              </button> */}
               <button onClick={() => removeFromCart(cart.id, item.id)}>
                 Remove
               </button>
