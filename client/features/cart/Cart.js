@@ -1,15 +1,17 @@
 // This is the cart component
 // path: client/features/cart/Cart.js
+
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import CartItem from './CartItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
 import {
   deleteProductFromCartAsync,
   fetchCartAsync,
   selectCart,
-} from './cartSlice';
+} from "./cartSlice";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -23,8 +25,8 @@ const Cart = () => {
       await dispatch(fetchCartAsync(me.id));
     } else {
       //else fetch cart from state using localstorage so when guest refreshes page, the cart will still be there
-      const guestCart = JSON.parse(localStorage.getItem('guestCart')) || [];
-      dispatch({ type: 'cart/setGuestCart', payload: guestCart });
+      const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
+      dispatch({ type: "cart/setGuestCart", payload: guestCart });
     }
   };
 
@@ -43,8 +45,8 @@ const Cart = () => {
     } else {
       // remove the product from the guest cart and update localstorage
       const updatedGuestCart = cart.filter((item) => item.id !== productId);
-      localStorage.setItem('guestCart', JSON.stringify(updatedGuestCart));
-      dispatch({ type: 'cart/setGuestCart', payload: updatedGuestCart });
+      localStorage.setItem("guestCart", JSON.stringify(updatedGuestCart));
+      dispatch({ type: "cart/setGuestCart", payload: updatedGuestCart });
     }
   };
 
@@ -52,35 +54,35 @@ const Cart = () => {
     assignCart();
   }, []);
 
-  // const totalPrice =
-  //   cartItems.products && cartItems.products.length > 0
-  //     ? cartItems.products.reduce((acc, item) => {
-  //         return acc + item.price * item.order_products.quantity;
-  //       }, 0)
-  //     : 0;
-
-  // check if me exists and has an id. If not, display a message to log in. -- Do Not need this anymore because we are using localstorage to store guest cart
-  // if (!me || !me.id) {
-  //   return <div>Please log in to view your cart</div>;
-  // }
+  const totalPrice =
+    cart.products && cart.products.length > 0
+      ? cart.products.reduce((acc, item) => {
+          return acc + item.price * item.order_products.quantity;
+        }, 0)
+      : 0;
 
   return (
     <div>
       <h1>Cart</h1>
       <ul>
-        {cart.products &&
+        {cart &&
+          cart.products &&
           cart.products.length > 0 &&
           cart.products.map((item) => (
+
             <CartItem
               key={item.id}
               item={item}
               cartId={cart.id}
               removeFromCart={removeFromCart}
             />
+
           ))}
       </ul>
-      <button onClick={() => handleCheckout()}>Checkout</button>
-      {/* <p>Total: ${totalPrice}</p> */}
+      {cart && cart.products && cart.products.length > 0 && (
+        <button onClick={() => handleCheckout()}>Checkout</button>
+      )}
+      <p>Total: ${totalPrice}</p>
     </div>
   );
 };

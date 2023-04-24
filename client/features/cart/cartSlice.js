@@ -90,13 +90,14 @@ export const cartSlice = createSlice({
       } else {
         // User Cart - logged in
 
-        state.userCart.push(action.payload);
+        state.userCart.products.push(action.payload);
       }
     });
     builder.addCase(deleteProductFromCartAsync.fulfilled, (state, action) => {
-      console.log('builder action: ', action);
-      return state.userCart.products.filter(
-        (productId) => productId !== action.payload
+      console.log("builder action: ", action);
+      state.userCart.products = state.userCart.products.filter(
+        (product) => product.id !== action.payload,
+
       );
     });
   },
