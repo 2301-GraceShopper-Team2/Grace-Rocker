@@ -202,7 +202,7 @@ async function seed() {
       userId: 3,
     }),
     Order.create({
-      isFulfilled: true,
+      isFulfilled: false,
       userId: 4,
     }),
     Order.create({
@@ -216,6 +216,14 @@ async function seed() {
     Order.create({
       isFulfilled: false,
       userId: 7,
+    }),
+    Order.create({
+      isFulfilled: true,
+      userId: 7,
+    }),
+    Order.create({
+      isFulfilled: false,
+      userId: 8,
     }),
     Order.create({
       isFulfilled: true,
@@ -234,7 +242,7 @@ async function seed() {
       userId: 11,
     }),
     Order.create({
-      isFulfilled: true,
+      isFulfilled: false,
       userId: 12,
     }),
     Order.create({
@@ -363,6 +371,16 @@ async function seed() {
     Order_Products.create({
       quantity: 1,
       orderId: 6,
+      productId: 5,
+    }),
+    Order_Products.create({
+      quantity: 1,
+      orderId: 17,
+      productId: 5,
+    }),
+    Order_Products.create({
+      quantity: 1,
+      orderId: 18,
       productId: 5,
     }),
   ]);

@@ -35,11 +35,13 @@ router.get("/user/:id/orders", async (req, res, next) => {
 // single cart for a user
 router.get("/user/:id/cart", async (req, res, next) => {
   try {
-    const id = req.params.id;
-    const cart = await Order.findAll({
+    const id = parseInt(req.params.id);
+    const data = await Order.findAll({
       where: { userId: id, isFulfilled: false },
       include: [{ model: Product, through: Order_Products }],
     });
+    const cart = data[0].products;
+    console.log("express cart data is: ", cart);
     res.json(cart);
   } catch (err) {
     next(err);
