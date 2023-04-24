@@ -89,7 +89,7 @@ export const cartSlice = createSlice({
         state.guestCart = action.payload;
       } else {
         // User Cart - logged in
-        state.userCart.push(action.payload);
+        state.userCart.products.push(action.payload);
       }
     });
     builder.addCase(deleteProductFromCartAsync.fulfilled, (state, action) => {
