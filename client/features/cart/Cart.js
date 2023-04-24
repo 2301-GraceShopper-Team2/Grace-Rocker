@@ -15,37 +15,37 @@ const Cart = () => {
   const navigate = useNavigate();
   const me = useSelector((state) => state.auth.me);
 
-  const cartItems = useSelector(selectCart);
+  const cart = useSelector(selectCart);
 
   const assignCart = async () => {
     if (me && me.id) {
       await dispatch(fetchCartAsync(me.id));
-    } else { //else fetch cart from state using localstorage so when guest refreshes page, the cart will still be there
+    } else {
+      //else fetch cart from state using localstorage so when guest refreshes page, the cart will still be there
       const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
-      dispatch({ type: "cart/setGuestCart", payload: guestCart});
+      dispatch({ type: "cart/setGuestCart", payload: guestCart });
     }
-    
   };
 
   const updateOrder = async () => {
-    await axios.put(`/api/cart/${cartItems.id}`);
+    await axios.put(`/api/cart/${cart.id}`);
     await axios.post(`/api/user/${me.id}/cart`);
   };
 
   const handleCheckout = () => {
-    updateOrder().then(navigate(`/checkout/${cartItems.id}`));
+    updateOrder().then(navigate(`/checkout/${cart.id}`));
   };
 
-  const removeFromCart = (productId) => {
-    dispatch(deleteProductFromCartAsync(productId));
+  const removeFromCart = (orderId, productId) => {
     if (me && me.id) {
-  } else {
-    // remove the product from the guest cart and update localstorage
-    const updatedGuestCart = cartItems.filter((item) => item.id !== productId);
-    localStorage.setItem("guestCart", JSON.stringify(updatedGuestCart));
-    dispatch({ type: "cart/setGuestCart", payload: updatedGuestCart });
-  }
-};
+      dispatch(deleteProductFromCartAsync({ orderId, productId }));
+    } else {
+      // remove the product from the guest cart and update localstorage
+      const updatedGuestCart = cart.filter((item) => item.id !== productId);
+      localStorage.setItem("guestCart", JSON.stringify(updatedGuestCart));
+      dispatch({ type: "cart/setGuestCart", payload: updatedGuestCart });
+    }
+  };
 
   useEffect(() => {
     assignCart();
@@ -67,12 +67,14 @@ const Cart = () => {
     <div>
       <h1>Cart</h1>
       <ul>
-        {cartItems.products &&
-          cartItems.products.length > 0 &&
-          cartItems.products.map((item) => (
+        {cart.products &&
+          cart.products.length > 0 &&
+          cart.products.map((item) => (
             <li key={item.id}>
               {item.name} - ${item.price} - {item.order_products.quantity}{" "}
-              <button onClick={() => removeFromCart(item.id)}>Remove</button>
+              <button onClick={() => removeFromCart(cart.id, item.id)}>
+                Remove
+              </button>
             </li>
           ))}
       </ul>

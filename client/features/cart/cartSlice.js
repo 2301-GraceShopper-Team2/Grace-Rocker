@@ -22,8 +22,10 @@ export const addProductToCartAsync = createAsyncThunk(
 
     if (me && me.id) {
       try {
-        const { data } = await axios.post(`/api/cart/${me.id}/product/${productId}`);
-        return data;
+        const { data } = await axios.post(
+          `/api/cart/${me.id}/product/${productId}`,
+        );
+        return productId;
       } catch (err) {
         return err;
       }
@@ -48,12 +50,16 @@ export const addProductToCartAsync = createAsyncThunk(
   },
 );
 
+//router.delete("/cart/:orderId/product/:productId",
 export const deleteProductFromCartAsync = createAsyncThunk(
   "cart/deleteProductFromCart",
-  async (productId) => {
+  async ({ orderId, productId }) => {
     try {
-      const { data } = await axios.delete(`/api/cart/${productId}`);
-      return data;
+      const { data } = await axios.delete(
+        `/api/cart/${orderId}/product/${productId}`,
+      );
+      console.log("=========> ", data);
+      return productId;
     } catch (err) {
       return err;
     }
@@ -87,7 +93,10 @@ export const cartSlice = createSlice({
       }
     });
     builder.addCase(deleteProductFromCartAsync.fulfilled, (state, action) => {
-      return state.filter((product) => product.id != action.payload);
+      console.log("builder action: ", action);
+      return state.userCart.products.filter(
+        (productId) => productId !== action.payload,
+      );
     });
   },
 });

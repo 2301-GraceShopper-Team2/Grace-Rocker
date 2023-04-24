@@ -143,7 +143,6 @@ router.put("/cart/:orderId/product/:productId", async (req, res, next) => {
 });
 
 //Update cart with deleting items
-
 router.delete("/cart/:orderId/product/:productId", async (req, res, next) => {
   try {
     const orderId = req.params.orderId;
