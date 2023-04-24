@@ -1,20 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
-import { editProductAsync, selectSingleProduct } from './singleProductSlice';
-import { fetchSingleProductAsync } from './singleProductSlice';
-import { deleteProductAsync } from '../allProducts/allProductsSlice';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { editProductAsync, selectSingleProduct } from "./singleProductSlice";
+import { fetchSingleProductAsync } from "./singleProductSlice";
+import { deleteProductAsync } from "../allProducts/allProductsSlice";
+import { addProductToCartAsync } from "../cart/cartSlice";
 
 const SingleProduct = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [SKU, setSKU] = useState('');
-  const [price, setPrice] = useState('');
-  const [imageURL, setImageURL] = useState('');
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [SKU, setSKU] = useState("");
+  const [price, setPrice] = useState("");
+  const [imageURL, setImageURL] = useState("");
   const [numItems, setNumItems] = useState(1);
 
   const isAdmin = useSelector((state) => state.auth.me.isAdmin);
@@ -35,10 +36,10 @@ const SingleProduct = () => {
     if (SKU) update.SKU = SKU;
     if (imageURL) update.imageURL = imageURL;
     dispatch(editProductAsync(update));
-    setName('');
-    setDescription('');
-    setSKU('');
-    setPrice('');
+    setName("");
+    setDescription("");
+    setSKU("");
+    setPrice("");
     setImageURL();
   };
 
@@ -129,13 +130,20 @@ const SingleProduct = () => {
         +
       </button>
 
-      <button>Add To Cart</button>
+      <button
+        onClick={() => {
+          console.log("Add to cart clicked", id);
+          dispatch(addProductToCartAsync(id));
+        }}
+      >
+        Add To Cart
+      </button>
 
       {isAdmin && (
         <button
           onClick={() => {
             dispatch(deleteProductAsync(id));
-            navigate('/products');
+            navigate("/products");
           }}
         >
           Delete Product
