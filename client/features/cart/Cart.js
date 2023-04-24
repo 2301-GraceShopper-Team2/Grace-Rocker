@@ -1,55 +1,57 @@
 // This is the cart component
 // path: client/features/cart/Cart.js
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  selectCart,
-  fetchCartAsync,
   deleteProductFromCartAsync,
+  fetchCartAsync,
+  selectCart,
 } from "./cartSlice";
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const cartItems = useSelector(selectCart);
   const me = useSelector((state) => state.auth.me);
-  const [cart, setCart] = useState([]);
+
+  const cartItems = useSelector(selectCart);
 
   const assignCart = async () => {
     if (me && me.id) {
       await dispatch(fetchCartAsync(me.id));
-      setCart(cartItems);
     }
+    //else fetch cart from state
   };
-
-  useEffect(() => {
-    assignCart();
-  }, [dispatch, me]);
 
   const removeFromCart = (productId) => {
     dispatch(deleteProductFromCartAsync(productId));
   };
 
-  // check if cartItems is an array using Array.isArray. If an array, use reduce to calculate the total price. If not an array, set the total price to 0.
-  const totalPrice = Array.isArray(cartItems)
-    ? cartItems.reduce((acc, item) => {
-        return acc + item.price * item.order_product.quantity;
-      }, 0)
-    : 0;
+  useEffect(() => {
+    assignCart();
+  }, []);
 
-    // check if me exists and has an id. If not, display a message to log in.
-    if (!me || !me.id) {
-      return <div>Please log in to view your cart</div>;
-    }
+  // check if cartItems is an array using Array.isArray. If an array, use reduce to calculate the total price. If not an array, set the total price to 0.
+
+  const totalPrice =
+    cartItems.length > 0
+      ? cartItems.reduce((acc, item) => {
+          return acc + item.price * item.order_products.quantity;
+        }, 0)
+      : 0;
+
+  // check if me exists and has an id. If not, display a message to log in.
+  if (!me || !me.id) {
+    return <div>Please log in to view your cart</div>;
+  }
 
   return (
     <div>
       <h1>Cart</h1>
-      {JSON.stringify(cart)}
+      {/* {JSON.stringify(cartItems)} */}
       <ul>
-        {cart &&
-          cart.map((item) => (
+        {cartItems.length > 0 &&
+          cartItems.map((item) => (
             <li key={item.id}>
-              {item.name} - ${item.price} - {item.order_product.quantity}{" "}
+              {item.name} - ${item.price} - {item.order_products.quantity}{" "}
               <button onClick={() => removeFromCart(item.id)}>Remove</button>
             </li>
           ))}
