@@ -40,8 +40,7 @@ router.get("/user/:id/cart", async (req, res, next) => {
       where: { userId: id, isFulfilled: false },
       include: [{ model: Product, through: Order_Products }],
     });
-    const cart = data[0].products;
-    console.log("express cart data is: ", cart);
+    const cart = data[0];
     res.json(cart);
   } catch (err) {
     next(err);
@@ -53,7 +52,6 @@ router.get("/user/:id/cart", async (req, res, next) => {
 router.post("/user/:id/cart", async (req, res, next) => {
   try {
     const id = req.params.id;
-
     const newCart = await Order.create({ userId: id });
     res.json(newCart);
   } catch (err) {

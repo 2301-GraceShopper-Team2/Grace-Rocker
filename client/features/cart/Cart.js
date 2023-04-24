@@ -1,7 +1,9 @@
 // This is the cart component
 // path: client/features/cart/Cart.js
+import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   deleteProductFromCartAsync,
   fetchCartAsync,
@@ -10,6 +12,7 @@ import {
 
 const Cart = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const me = useSelector((state) => state.auth.me);
 
   const cartItems = useSelector(selectCart);
@@ -22,6 +25,15 @@ const Cart = () => {
       dispatch({ type: "cart/setGuestCart", payload: guestCart});
     }
     
+  };
+
+  const updateOrder = async () => {
+    await axios.put(`/api/cart/${cartItems.id}`);
+    await axios.post(`/api/user/${me.id}/cart`);
+  };
+
+  const handleCheckout = () => {
+    updateOrder().then(navigate(`/checkout/${cartItems.id}`));
   };
 
   const removeFromCart = (productId) => {
@@ -38,14 +50,12 @@ const Cart = () => {
     assignCart();
   }, []);
 
-  // check if cartItems is an array using Array.isArray. If an array, use reduce to calculate the total price. If not an array, set the total price to 0.
-
-  const totalPrice =
-    cartItems.length > 0
-      ? cartItems.reduce((acc, item) => {
-          return acc + item.price * item.order_products.quantity;
-        }, 0)
-      : 0;
+  // const totalPrice =
+  //   cartItems.products && cartItems.products.length > 0
+  //     ? cartItems.products.reduce((acc, item) => {
+  //         return acc + item.price * item.order_products.quantity;
+  //       }, 0)
+  //     : 0;
 
   // check if me exists and has an id. If not, display a message to log in.
   if (!me || !me.id) {
@@ -55,17 +65,18 @@ const Cart = () => {
   return (
     <div>
       <h1>Cart</h1>
-      {/* {JSON.stringify(cartItems)} */}
       <ul>
-        {cartItems.length > 0 &&
-          cartItems.map((item) => (
+        {cartItems.products &&
+          cartItems.products.length > 0 &&
+          cartItems.products.map((item) => (
             <li key={item.id}>
               {item.name} - ${item.price} - {item.order_products.quantity}{" "}
               <button onClick={() => removeFromCart(item.id)}>Remove</button>
             </li>
           ))}
       </ul>
-      <p>Total: ${totalPrice}</p>
+      <button onClick={() => handleCheckout()}>Checkout</button>
+      {/* <p>Total: ${totalPrice}</p> */}
     </div>
   );
 };

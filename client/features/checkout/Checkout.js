@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Checkout = () => {
   const { id } = useParams();
@@ -53,11 +52,6 @@ const Checkout = () => {
       )}
       {/* <p>Address to ship to</p> */}
       {order && order.products && <p>Total price: ${renderTotal(order)}</p>}
-      {order && order.isFulfilled && (
-        <div>
-          <button>Cancel Order</button>
-        </div>
-      )}
       {order && !order.isFulfilled && (
         <div>
           <button onClick={() => navigate("/cart")}>Return to Cart</button>
