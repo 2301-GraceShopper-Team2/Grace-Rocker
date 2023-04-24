@@ -17,13 +17,22 @@ const Cart = () => {
   const assignCart = async () => {
     if (me && me.id) {
       await dispatch(fetchCartAsync(me.id));
+    } else { //else fetch cart from state using localstorage so when guest refreshes page, the cart will still be there
+      const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
+      dispatch({ type: "cart/setGuestCart", payload: guestCart});
     }
-    //else fetch cart from state
+    
   };
 
   const removeFromCart = (productId) => {
     dispatch(deleteProductFromCartAsync(productId));
-  };
+  } else {
+    // remove the product from the guest cart and update localstorage
+    const updatedGuestCart = cartItems.filter((item) => item.id !== productId);
+    localStorage.setItem("guestCart", JSON.stringify(updatedGuestCart));
+    dispatch({ type: "cart/setGuestCart", payload: updatedGuestCart });
+  }
+};
 
   useEffect(() => {
     assignCart();
