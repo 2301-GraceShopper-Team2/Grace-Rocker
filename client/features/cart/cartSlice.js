@@ -7,9 +7,7 @@ export const fetchCartAsync = createAsyncThunk(
   "cart/fetchCart",
   async (userId) => {
     try {
-      console.log("fetching card for user id: ", userId);
       const { data } = await axios.get(`/api/user/${userId}/cart`);
-      console.log("got the data as: ", data);
       return data;
     } catch (err) {
       return err;
