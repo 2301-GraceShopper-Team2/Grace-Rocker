@@ -111,24 +111,7 @@ const SingleProduct = () => {
         </div>
       )}
 
-      <label>Qty</label>
-      <p>{numItems}</p>
-      <button
-        onClick={() => {
-          if (numItems > 1) {
-            setNumItems(numItems - 1);
-          }
-        }}
-      >
-        -
-      </button>
-      <button
-        onClick={() => {
-          setNumItems(numItems + 1);
-        }}
-      >
-        +
-      </button>
+     
 
       <button
         onClick={() => {
