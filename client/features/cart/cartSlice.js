@@ -94,9 +94,11 @@ export const cartSlice = createSlice({
       }
     });
     builder.addCase(deleteProductFromCartAsync.fulfilled, (state, action) => {
-      console.log('builder action: ', action);
-      return state.userCart.products.filter(
-        (productId) => productId !== action.payload
+
+      console.log("builder action: ", action);
+      state.userCart.products = state.userCart.products.filter(
+        (product) => product.id !== action.payload,
+
       );
     });
   },
