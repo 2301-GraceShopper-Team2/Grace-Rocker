@@ -1,10 +1,10 @@
 // Redux slice for Cart
 // Path: client/features/cart/cartSlice.js
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 export const fetchCartAsync = createAsyncThunk(
-  "cart/fetchCart",
+  'cart/fetchCart',
   async (userId) => {
     try {
       const { data } = await axios.get(`/api/user/${userId}/cart`);
@@ -12,18 +12,18 @@ export const fetchCartAsync = createAsyncThunk(
     } catch (err) {
       return err;
     }
-  },
+  }
 );
 
 export const addProductToCartAsync = createAsyncThunk(
-  "cart/addProductToCart",
+  'cart/addProductToCart',
   async (productId, thunkAPI) => {
     const me = thunkAPI.getState().auth.me;
 
     if (me && me.id) {
       try {
         const { data } = await axios.post(
-          `/api/cart/${me.id}/product/${productId}`,
+          `/api/cart/${me.id}/product/${productId}`
         );
         return productId;
       } catch (err) {
@@ -31,7 +31,7 @@ export const addProductToCartAsync = createAsyncThunk(
       }
     } else {
       // handle guest cart
-      const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
+      const guestCart = JSON.parse(localStorage.getItem('guestCart')) || [];
       const existingProduct = guestCart.find((item) => item.id === productId);
 
       if (existingProduct) {
@@ -42,28 +42,28 @@ export const addProductToCartAsync = createAsyncThunk(
         guestCart.push(product);
       }
       // update guest cart in localstorage
-      localStorage.setItem("guestCart", JSON.stringify(guestCart));
+      localStorage.setItem('guestCart', JSON.stringify(guestCart));
 
       // return the guest cart to update the Redux state
       return guestCart;
     }
-  },
+  }
 );
 
 //router.delete("/cart/:orderId/product/:productId",
 export const deleteProductFromCartAsync = createAsyncThunk(
-  "cart/deleteProductFromCart",
+  'cart/deleteProductFromCart',
   async ({ orderId, productId }) => {
     try {
       const { data } = await axios.delete(
-        `/api/cart/${orderId}/product/${productId}`,
+        `/api/cart/${orderId}/product/${productId}`
       );
-      console.log("=========> ", data);
+      console.log('=========> ', data);
       return productId;
     } catch (err) {
       return err;
     }
-  },
+  }
 );
 
 const initialState = {
@@ -72,7 +72,7 @@ const initialState = {
 };
 
 export const cartSlice = createSlice({
-  name: "cart",
+  name: 'cart',
   initialState,
   reducers: {
     setGuestCart: (state, action) => {
@@ -89,6 +89,7 @@ export const cartSlice = createSlice({
         state.guestCart = action.payload;
       } else {
         // User Cart - logged in
+
         state.userCart.products.push(action.payload);
       }
     });
@@ -96,6 +97,7 @@ export const cartSlice = createSlice({
       console.log("builder action: ", action);
       state.userCart.products = state.userCart.products.filter(
         (product) => product.id !== action.payload,
+
       );
     });
   },

@@ -1,9 +1,12 @@
 // This is the cart component
 // path: client/features/cart/Cart.js
-import axios from "axios";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+
+import axios from 'axios';
+import React, { useEffect } from 'react';
+import CartItem from './CartItem';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
 import {
   deleteProductFromCartAsync,
   fetchCartAsync,
@@ -66,30 +69,14 @@ const Cart = () => {
           cart.products &&
           cart.products.length > 0 &&
           cart.products.map((item) => (
-            <li key={item.id}>
-              {item.name} - ${item.price} - {item.order_products.quantity}{" "}
-              {/* <label>Qty</label>
-              <p>{numItems}</p>
-              <button
-                onClick={() => {
-                  if (numItems > 1) {
-                    setNumItems(numItems - 1);
-                  }
-                }}
-              >
-                -
-              </button>
-              <button
-                onClick={() => {
-                  setNumItems(numItems + 1);
-                }}
-              >
-                +
-              </button> */}
-              <button onClick={() => removeFromCart(cart.id, item.id)}>
-                Remove
-              </button>
-            </li>
+
+            <CartItem
+              key={item.id}
+              item={item}
+              cartId={cart.id}
+              removeFromCart={removeFromCart}
+            />
+
           ))}
       </ul>
       {cart && cart.products && cart.products.length > 0 && (
