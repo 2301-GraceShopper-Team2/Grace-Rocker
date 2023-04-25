@@ -7,6 +7,7 @@
     "node": "18.x"
   },
   "scripts": {
+    "go": "node script/seed.js & npm run build:dev & npm run start-server",
     "build": "webpack",
     "build:dev": "npm run build -- --watch --mode=development",
     "seed": "node script/seed.js",
