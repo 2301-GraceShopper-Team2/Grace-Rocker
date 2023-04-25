@@ -6,7 +6,6 @@ import { selectProducts } from './allProductsSlice.js';
 import { Link, useNavigate } from 'react-router-dom';
 
 const AllProducts = () => {
-  const [numItems, setNumItems] = useState(1);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isAdmin = useSelector((state) => state.auth.me.isAdmin);
@@ -30,8 +29,6 @@ const AllProducts = () => {
               <p>Price: ${product.price}</p>
               <p>SKU: {product.SKU}</p>
               <img src={product.imageURL} />
-              <label>Qty</label>
-              <p>{numItems}</p>
 
               {isAdmin && (
                 <button

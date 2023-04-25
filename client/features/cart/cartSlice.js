@@ -18,14 +18,20 @@ export const fetchCartAsync = createAsyncThunk(
 export const addProductToCartAsync = createAsyncThunk(
   'cart/addProductToCart',
   async (productId, thunkAPI) => {
+    console.log('thunkAPI', thunkAPI);
     const me = thunkAPI.getState().auth.me;
-
     if (me && me.id) {
       try {
         const { data } = await axios.post(
           `/api/cart/${me.id}/product/${productId}`
         );
-        return productId;
+        if (data.id) {
+          // return newly created product_order with ID
+          return data;
+        } else {
+          // send browser alert "Product already in cart"
+          alert(data);
+        }
       } catch (err) {
         return err;
       }
@@ -58,8 +64,8 @@ export const deleteProductFromCartAsync = createAsyncThunk(
       const { data } = await axios.delete(
         `/api/cart/${orderId}/product/${productId}`
       );
-      console.log('=========> ', data);
-      return productId;
+      console.log('DATA', data);
+      return data;
     } catch (err) {
       return err;
     }
@@ -89,15 +95,15 @@ export const cartSlice = createSlice({
         state.guestCart = action.payload;
       } else {
         // User Cart - logged in
-
-        state.userCart.products.push(action.payload);
+        if (action.payload) {
+          state.userCart.push(action.payload);
+        }
       }
     });
     builder.addCase(deleteProductFromCartAsync.fulfilled, (state, action) => {
-      console.log("builder action: ", action);
+      console.log('builder action: ', action);
       state.userCart.products = state.userCart.products.filter(
-        (product) => product.id !== action.payload,
-
+        (product) => product.id !== action.payload
       );
     });
   },
