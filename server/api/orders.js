@@ -1,11 +1,11 @@
-const router = require("express").Router();
+const router = require('express').Router();
 const {
   models: { Order, Product, User, Order_Products },
-} = require("../db");
+} = require('../db');
 
 //Fetches order by id regardless of the order, such as cart or checkout
 
-router.get("/orders/:id", async (req, res, next) => {
+router.get('/orders/:id', async (req, res, next) => {
   try {
     const id = req.params.id;
     const orders = await Order.findByPk(id, {
@@ -19,7 +19,7 @@ router.get("/orders/:id", async (req, res, next) => {
 
 //Get all carts for a user (Order History)
 
-router.get("/user/:id/orders", async (req, res, next) => {
+router.get('/user/:id/orders', async (req, res, next) => {
   try {
     const id = req.params.id;
     const orders = await Order.findAll({
@@ -33,7 +33,7 @@ router.get("/user/:id/orders", async (req, res, next) => {
 });
 
 // single cart for a user
-router.get("/user/:id/cart", async (req, res, next) => {
+router.get('/user/:id/cart', async (req, res, next) => {
   try {
     const id = parseInt(req.params.id);
     const data = await Order.findAll({
@@ -49,7 +49,7 @@ router.get("/user/:id/cart", async (req, res, next) => {
 
 //Create cart
 
-router.post("/user/:id/cart", async (req, res, next) => {
+router.post('/user/:id/cart', async (req, res, next) => {
   try {
     const id = req.params.id;
     const newCart = await Order.create({ userId: id });
@@ -60,7 +60,7 @@ router.post("/user/:id/cart", async (req, res, next) => {
 });
 
 // Change cart status to fulfilled
-router.put("/cart/:id", async (req, res, next) => {
+router.put('/cart/:id', async (req, res, next) => {
   try {
     const id = req.params.id;
     const cart = await Order.findByPk(id);
@@ -96,7 +96,7 @@ router.put("/cart/:id", async (req, res, next) => {
 
 //Add item to cart!!!!!!
 
-router.post("/cart/:orderId/product/:productId", async (req, res, next) => {
+router.post('/cart/:orderId/product/:productId', async (req, res, next) => {
   try {
     const orderId = req.params.orderId;
     const productId = req.params.productId;
@@ -105,14 +105,14 @@ router.post("/cart/:orderId/product/:productId", async (req, res, next) => {
       where: { orderId: orderId, productId },
     });
     if (!productCart) {
-      await Order_Products.create({
+      const newProductOrder = await Order_Products.create({
         orderId: orderId,
         productId,
         quantity: 1,
       });
-      res.send("Product added to cart");
+      res.send(newProductOrder);
     } else {
-      res.send("Product already in cart");
+      res.send('Product already in cart');
     }
   } catch (err) {
     next(err);
@@ -120,7 +120,7 @@ router.post("/cart/:orderId/product/:productId", async (req, res, next) => {
 });
 
 //Change quantity in cart
-router.put("/cart/:orderId/product/:productId", async (req, res, next) => {
+router.put('/cart/:orderId/product/:productId', async (req, res, next) => {
   try {
     const orderId = req.params.orderId;
     const productId = req.params.productId;
@@ -133,9 +133,10 @@ router.put("/cart/:orderId/product/:productId", async (req, res, next) => {
     if (productInCart) {
       productInCart.quantity += quantity;
       await productInCart.save();
-      res.send("Product Quantity Updated");
+      // this should really be returning the product ID
+      res.send('Product Quantity Updated');
     } else {
-      res.send("Product not found in cart");
+      res.send('Product not found in cart');
     }
   } catch (err) {
     next(err);
@@ -143,7 +144,7 @@ router.put("/cart/:orderId/product/:productId", async (req, res, next) => {
 });
 
 //Update cart with deleting items
-router.delete("/cart/:orderId/product/:productId", async (req, res, next) => {
+router.delete('/cart/:orderId/product/:productId', async (req, res, next) => {
   try {
     const orderId = req.params.orderId;
     const productId = req.params.productId;
@@ -153,9 +154,9 @@ router.delete("/cart/:orderId/product/:productId", async (req, res, next) => {
     });
     if (productCart) {
       await productCart.destroy();
-      res.send("Product removed from cart");
+      res.send(productId);
     } else {
-      res.send("Product not found in cart");
+      res.send('Product not found in cart');
     }
   } catch (err) {
     next(err);

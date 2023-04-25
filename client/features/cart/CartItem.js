@@ -4,9 +4,6 @@ import { useDispatch } from 'react-redux';
 const CartItem = ({ item, cartId, removeFromCart }) => {
   const [itemQty, setItemQty] = useState(item.order_products.quantity);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch();
-  }, []);
 
   return (
     <li key={item.id}>

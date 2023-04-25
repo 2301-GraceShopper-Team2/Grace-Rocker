@@ -11,7 +11,7 @@ import {
   deleteProductFromCartAsync,
   fetchCartAsync,
   selectCart,
-} from "./cartSlice";
+} from './cartSlice';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -25,8 +25,8 @@ const Cart = () => {
       await dispatch(fetchCartAsync(me.id));
     } else {
       //else fetch cart from state using localstorage so when guest refreshes page, the cart will still be there
-      const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
-      dispatch({ type: "cart/setGuestCart", payload: guestCart });
+      const guestCart = JSON.parse(localStorage.getItem('guestCart')) || [];
+      dispatch({ type: 'cart/setGuestCart', payload: guestCart });
     }
   };
 
@@ -45,8 +45,8 @@ const Cart = () => {
     } else {
       // remove the product from the guest cart and update localstorage
       const updatedGuestCart = cart.filter((item) => item.id !== productId);
-      localStorage.setItem("guestCart", JSON.stringify(updatedGuestCart));
-      dispatch({ type: "cart/setGuestCart", payload: updatedGuestCart });
+      localStorage.setItem('guestCart', JSON.stringify(updatedGuestCart));
+      dispatch({ type: 'cart/setGuestCart', payload: updatedGuestCart });
     }
   };
 
@@ -69,14 +69,12 @@ const Cart = () => {
           cart.products &&
           cart.products.length > 0 &&
           cart.products.map((item) => (
-
             <CartItem
               key={item.id}
               item={item}
               cartId={cart.id}
               removeFromCart={removeFromCart}
             />
-
           ))}
       </ul>
       {cart && cart.products && cart.products.length > 0 && (
