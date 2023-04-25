@@ -5,7 +5,7 @@ export const fetchAllProductsAsync = createAsyncThunk(
   "products/fetchAll",
   async () => {
     try {
-      const { data } = await axios.get("https://gracerocker.onrender.com");
+      const { data } = await axios.get("https://gracerocker.onrender.com/api");
       return data;
     } catch (err) {
       return err;
