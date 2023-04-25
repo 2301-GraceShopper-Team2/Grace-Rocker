@@ -108,7 +108,7 @@ export const cartSlice = createSlice({
       } else {
         // User Cart - logged in
         if (action.payload) {
-          state.userCart = [...state.userCart, action.payload];
+          state.userCart.products = [...state.userCart.products, action.payload];
         }
       }
     });
