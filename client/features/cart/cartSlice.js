@@ -108,7 +108,7 @@ export const cartSlice = createSlice({
       } else {
         // User Cart - logged in
         if (action.payload) {
-          state.userCart.push(action.payload);
+          state.userCart = [...state.userCart, action.payload];
         }
       }
     });
@@ -118,20 +118,20 @@ export const cartSlice = createSlice({
       );
     });
     builder.addCase(changeQuantityInCartAsync.fulfilled, (state, action) => {
-      const editedProductsArray = state.userCart.products.filter((product) => {
-        return (
+      const productIndex = state.userCart.products.findIndex(
+        (product) =>
           parseInt(product.order_products.id) ===
-          parseInt(action.payload.productInCart.id)
-        );
-      });
-      const editedProduct = editedProductsArray[0];
-      const rewriteIndex = state.userCart.products.indexOf(editedProduct);
-      const productToRewrite = state.userCart.products[rewriteIndex];
-      state.userCart.products[rewriteIndex].order_products.quantity =
-        action.payload.productInCart.quantity;
+          parseInt(action.payload.productInCart.id),
+      );
+      if (productIndex > -1) {
+        state.userCart.products[productIndex].order_products.quantity =
+          action.payload.productInCart.quantity;
+      }
     });
   },
 });
+
+
 
 export const selectCart = (state) => {
   if (state.auth.me && state.auth.me.id) {
