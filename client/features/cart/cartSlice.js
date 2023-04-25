@@ -8,7 +8,6 @@ export const fetchCartAsync = createAsyncThunk(
   async (userId) => {
     try {
       const { data } = await axios.get(`/api/user/${userId}/cart`);
-      console.log("data: ", data);
       return data;
     } catch (err) {
       return err;
@@ -19,7 +18,6 @@ export const fetchCartAsync = createAsyncThunk(
 export const addProductToCartAsync = createAsyncThunk(
   "cart/addProductToCart",
   async (productId, thunkAPI) => {
-    console.log("thunkAPI", thunkAPI);
     const me = thunkAPI.getState().auth.me;
     if (me && me.id) {
       try {
@@ -120,39 +118,17 @@ export const cartSlice = createSlice({
       );
     });
     builder.addCase(changeQuantityInCartAsync.fulfilled, (state, action) => {
-      // console.log("action.payload: ", action.payload);
-      // console.log("id in payload: ", action.payload.productInCart.id);
       const editedProductsArray = state.userCart.products.filter((product) => {
-        // console.log("id in filter: ", product.order_products.id);
         return (
           parseInt(product.order_products.id) ===
           parseInt(action.payload.productInCart.id)
         );
       });
-      // console.log("array upon filter: ", editedProductsArray);
       const editedProduct = editedProductsArray[0];
       const rewriteIndex = state.userCart.products.indexOf(editedProduct);
       const productToRewrite = state.userCart.products[rewriteIndex];
-      console.log("product to rewrite: ", productToRewrite);
       state.userCart.products[rewriteIndex].order_products.quantity =
         action.payload.productInCart.quantity;
-
-      // state.userCart.products = [
-      //   ...state.userCart.products,
-      //   ...(state.userCart.products[rewriteIndex] = {
-      //     ...productToRewrite,
-      //     order_products: {
-      //       ...productToRewrite.order_products,
-      //       quantity: action.payload.productInCart.quantity,
-      //     },
-      //   }),
-      // ];
-      // console.log("rewrite index: ", rewriteIndex);
-
-      //destructure and update just the row of the updated product
-      //overwrite the nested object with the new version of the nested object
-      //spread operation -- such and such isn't iterable,
-      //could build an entirely new object write that to state
     });
   },
 });
