@@ -9,6 +9,7 @@ const AllProducts = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isAdmin = useSelector((state) => state.auth.me.isAdmin);
+  
   useEffect(() => {
     dispatch(fetchAllProductsAsync());
   }, [dispatch]);
