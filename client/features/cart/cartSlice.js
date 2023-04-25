@@ -36,15 +36,21 @@ export const addProductToCartAsync = createAsyncThunk(
       }
     } else {
       // handle guest cart
-      const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
-      const existingProduct = guestCart.find((item) => item.id === productId);
-
+      const guestCart = JSON.parse(localStorage.getItem("guestCart")) || {
+        products: [],
+      };
+      const prodId = parseInt(productId);
+      const existingProduct = guestCart.products.find((item) => {
+        {
+          parseInt(item.id) === parseInt(prodId);
+        }
+      });
       if (existingProduct) {
-        existingProduct.order_products.quantity += 1;
+        existingProduct.order_products.quantity += 1; //use this above with userCart
       } else {
         const { data: product } = await axios.get(`/api/products/${productId}`);
         product.order_products = { quantity: 1 };
-        guestCart.push(product);
+        guestCart.products.push(product);
       }
       // update guest cart in localstorage
       localStorage.setItem("guestCart", JSON.stringify(guestCart));
@@ -85,8 +91,8 @@ export const deleteProductFromCartAsync = createAsyncThunk(
 );
 
 const initialState = {
-  userCart: [],
-  guestCart: [],
+  userCart: {},
+  guestCart: {},
 };
 
 export const cartSlice = createSlice({
@@ -108,7 +114,10 @@ export const cartSlice = createSlice({
       } else {
         // User Cart - logged in
         if (action.payload) {
-          state.userCart.products = [...state.userCart.products, action.payload];
+          state.userCart.products = [
+            ...state.userCart.products,
+            action.payload,
+          ];
         }
       }
     });
@@ -130,8 +139,6 @@ export const cartSlice = createSlice({
     });
   },
 });
-
-
 
 export const selectCart = (state) => {
   if (state.auth.me && state.auth.me.id) {

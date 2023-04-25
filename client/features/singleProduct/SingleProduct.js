@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { editProductAsync, selectSingleProduct } from "./singleProductSlice";
-import { fetchSingleProductAsync } from "./singleProductSlice";
 import { deleteProductAsync } from "../allProducts/allProductsSlice";
 import { addProductToCartAsync } from "../cart/cartSlice";
+import {
+  editProductAsync,
+  fetchSingleProductAsync,
+  selectSingleProduct,
+} from "./singleProductSlice";
+
 
 const SingleProduct = () => {
   const dispatch = useDispatch();
@@ -16,7 +20,7 @@ const SingleProduct = () => {
   const [SKU, setSKU] = useState("");
   const [price, setPrice] = useState("");
   const [imageURL, setImageURL] = useState("");
-  const [numItems, setNumItems] = useState(1);
+
 
   const isAdmin = useSelector((state) => state.auth.me.isAdmin);
   const product = useSelector(selectSingleProduct);
@@ -36,10 +40,10 @@ const SingleProduct = () => {
     if (SKU) update.SKU = SKU;
     if (imageURL) update.imageURL = imageURL;
     dispatch(editProductAsync(update));
-    setName("");
-    setDescription("");
-    setSKU("");
-    setPrice("");
+    setName('');
+    setDescription('');
+    setSKU('');
+    setPrice('');
     setImageURL();
   };
 
@@ -111,9 +115,8 @@ const SingleProduct = () => {
         </div>
       )}
 
-     
-
       <button
+        className="btn btn-primary"
         onClick={() => {
           dispatch(addProductToCartAsync(id));
         }}
@@ -125,7 +128,7 @@ const SingleProduct = () => {
         <button
           onClick={() => {
             dispatch(deleteProductAsync(id));
-            navigate("/products");
+            navigate('/products');
           }}
         >
           Delete Product
