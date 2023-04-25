@@ -61,11 +61,12 @@ const Cart = () => {
   }, []);
 
   const totalPrice =
-    cart && cart.products && cart.products.length > 0
-      ? cart.products.reduce((acc, item) => {
-          return acc + item.price * item.order_products.quantity;
-        }, 0)
-      : 0;
+
+  cart && cart.products && cart.products.length > 0
+    ? cart.products.reduce((acc, item) => {
+        return acc + item.price * (item.order_products ? item.order_products.quantity : 0);
+      }, 0)
+    : 0;
 
   return (
     <div>

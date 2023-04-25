@@ -24,6 +24,7 @@ const SingleProduct = () => {
   const product = useSelector(selectSingleProduct);
 
   useEffect(() => {
+    // dispatch(fetch);
     dispatch(fetchSingleProductAsync(id));
     setName(product.name);
   }, [dispatch]);

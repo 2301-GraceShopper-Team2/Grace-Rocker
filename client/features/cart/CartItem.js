@@ -15,14 +15,17 @@ const CartItem = ({ item, cartId, removeFromCart }) => {
     );
   };
 
+  const quantity = item.order_products?.quantity || 0;
+
+
   return (
     <li key={item.id}>
       {item.name} - ${item.price}
       <label>Qty</label>
-      <p>{item.order_products.quantity}</p>
+      <p>{quantity}</p>
       <button
         onClick={() => {
-          if (item.order_products.quantity > 1) {
+          if (quantity > 1) {
             handleClick(item.id, -1);
           }
         }}
