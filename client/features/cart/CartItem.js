@@ -1,19 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { changeQuantityInCartAsync } from "./cartSlice";
 
 const CartItem = ({ item, cartId, removeFromCart }) => {
-  const [itemQty, setItemQty] = useState(item.order_products.quantity);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    //needs to fetch item itself?
+  }, [dispatch]);
+
+  const handleClick = async (itemId, val) => {
+    await dispatch(
+      changeQuantityInCartAsync({ orderId: cartId, val, productId: itemId }),
+    );
+  };
 
   return (
     <li key={item.id}>
       {item.name} - ${item.price}
       <label>Qty</label>
-      <p>{itemQty}</p>
+      <p>{item.order_products.quantity}</p>
       <button
         onClick={() => {
-          if (itemQty > 1) {
-            setItemQty(itemQty - 1);
+          if (item.order_products.quantity > 1) {
+            handleClick(item.id, -1);
           }
         }}
       >
@@ -21,7 +31,7 @@ const CartItem = ({ item, cartId, removeFromCart }) => {
       </button>
       <button
         onClick={() => {
-          setItemQty(itemQty + 1);
+          handleClick(item.id, 1);
         }}
       >
         +
