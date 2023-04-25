@@ -1,11 +1,11 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 export const fetchAllProductsAsync = createAsyncThunk(
-  'products/fetchAll',
+  "products/fetchAll",
   async () => {
     try {
-      const { data } = await axios.get('/api/products');
+      const { data } = await axios.get("https://gracerocker.onrender.com");
       return data;
     } catch (err) {
       return err;
@@ -14,10 +14,10 @@ export const fetchAllProductsAsync = createAsyncThunk(
 );
 
 export const addProductAsync = createAsyncThunk(
-  'products/addProduct',
+  "products/addProduct",
   async ({ name, description, price, imageURL, SKU }) => {
     try {
-      const { data } = await axios.post('/api/products', {
+      const { data } = await axios.post("/api/products", {
         name,
         description,
         price,
@@ -32,7 +32,7 @@ export const addProductAsync = createAsyncThunk(
 );
 
 export const deleteProductAsync = createAsyncThunk(
-  'products/deleteProduct',
+  "products/deleteProduct",
   async (id) => {
     try {
       await axios.delete(`/api/products/${id}`);
@@ -44,7 +44,7 @@ export const deleteProductAsync = createAsyncThunk(
 );
 
 const allProductsSlice = createSlice({
-  name: 'allProducts',
+  name: "allProducts",
   initialState: [],
   reducers: {},
   extraReducers: (builder) => {
