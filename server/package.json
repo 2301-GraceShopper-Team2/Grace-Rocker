@@ -8,7 +8,7 @@
   },
   "scripts": {
     "go": "node script/seed.js & npm run build:dev & npm run start-server",
-    "build": "npm ci && npx webpack --config webpack.config.js",
+    "build": "npm install && npx webpack --config webpack.config.js",
     "build:dev": "npm run build -- --watch --mode=development",
     "seed": "node script/seed.js",
     "start": "npm run build & npm run start-server",
