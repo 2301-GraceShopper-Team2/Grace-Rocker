@@ -39,9 +39,15 @@ export const addProductToCartAsync = createAsyncThunk(
       const guestCart = JSON.parse(localStorage.getItem("guestCart")) || {
         products: [],
       };
-      const existingProduct = guestCart.products.find(
-        (item) => item.id === productId,
-      );
+      const prodId = parseInt(productId);
+      console.log("prodId :", prodId);
+      console.log("products array: ", guestCart.products);
+      const existingProduct = guestCart.products.find((item) => {
+        debugger;
+        {
+          parseInt(item.id) === parseInt(prodId);
+        }
+      });
       console.log("existingProduct: ", existingProduct);
       if (existingProduct) {
         existingProduct.order_products.quantity += 1; //use this above with userCart
@@ -99,7 +105,7 @@ export const cartSlice = createSlice({
   reducers: {
     setGuestCart: (state, action) => {
       console.log("action.payload: ", action.payload);
-      state.guestCart.products = action.payload;
+      state.guestCart = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -131,7 +137,6 @@ export const cartSlice = createSlice({
       });
       const editedProduct = editedProductsArray[0];
       const rewriteIndex = state.userCart.products.indexOf(editedProduct);
-      const productToRewrite = state.userCart.products[rewriteIndex];
       state.userCart.products[rewriteIndex].order_products.quantity =
         action.payload.productInCart.quantity;
     });
@@ -140,11 +145,8 @@ export const cartSlice = createSlice({
 
 export const selectCart = (state) => {
   if (state.auth.me && state.auth.me.id) {
-    console.log("hit the if");
     return state.cart.userCart;
   } else {
-    console.log("hit the else");
-    console.log("guestcart from selector: ", state.cart.guestCart);
     return state.cart.guestCart;
   }
 };

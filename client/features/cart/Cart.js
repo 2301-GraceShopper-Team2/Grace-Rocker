@@ -46,9 +46,13 @@ const Cart = () => {
       dispatch(deleteProductFromCartAsync({ orderId, productId }));
     } else {
       // remove the product from the guest cart and update localstorage
-      const updatedGuestCart = cart.filter((item) => item.id !== productId);
-      localStorage.setItem("guestCart", JSON.stringify(updatedGuestCart));
-      dispatch({ type: "cart/setGuestCart", payload: updatedGuestCart });
+      if (cart) {
+        const updatedGuestCart = cart.products.filter(
+          (item) => item.id !== productId,
+        );
+        localStorage.setItem("guestCart", JSON.stringify(updatedGuestCart));
+        dispatch({ type: "cart/setGuestCart", payload: updatedGuestCart });
+      }
     }
   };
 
@@ -57,7 +61,7 @@ const Cart = () => {
   }, []);
 
   const totalPrice =
-    cart.products && cart.products.length > 0
+    cart && cart.products && cart.products.length > 0
       ? cart.products.reduce((acc, item) => {
           return acc + item.price * item.order_products.quantity;
         }, 0)
@@ -67,6 +71,7 @@ const Cart = () => {
     <div>
       <h1>Cart</h1>
       <ul>
+        {JSON.stringify(cart)}
         {cart &&
           cart.products &&
           cart.products.length > 0 &&
