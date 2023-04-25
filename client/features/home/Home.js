@@ -1,7 +1,7 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 /**
  * COMPONENT
@@ -24,7 +24,7 @@ const Home = (props) => {
         <h2>Welcome {username || `Guest`}!</h2>
         {!username && (
           <h4>
-            For the best experience, <Link to="/login">log in</Link> or{" "}
+            For the best experience, <Link to="/login">log in</Link> or{' '}
             <Link to="/signup">create an account!</Link>
           </h4>
         )}
@@ -33,8 +33,8 @@ const Home = (props) => {
         <h3>Featured Products</h3>
         <div
           style={{
-            display: "flex",
-            flexDirection: "row",
+            display: 'flex',
+            flexDirection: 'row',
           }}
         >
           {featuredProducts &&
@@ -43,9 +43,9 @@ const Home = (props) => {
                 key={product.id}
                 width="300px"
                 style={{
-                  border: "1px solid black",
-                  margin: "5px",
-                  padding: "5px",
+                  border: '1px solid black',
+                  margin: '5px',
+                  padding: '5px',
                 }}
               >
                 <p>
@@ -55,9 +55,6 @@ const Home = (props) => {
                   <Link to={`/products/${product.id}`}>{product.name}</Link>
                 </p>
                 <p>{product.description}</p>
-                <p>
-                  <button>Add to Cart</button>
-                </p>
               </span>
             ))}
         </div>
