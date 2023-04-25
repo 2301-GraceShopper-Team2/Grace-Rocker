@@ -132,13 +132,27 @@ export const cartSlice = createSlice({
       // console.log("array upon filter: ", editedProductsArray);
       const editedProduct = editedProductsArray[0];
       const rewriteIndex = state.userCart.products.indexOf(editedProduct);
+      const productToRewrite = state.userCart.products[rewriteIndex];
+      console.log("product to rewrite: ", productToRewrite);
+      state.userCart.products[rewriteIndex].order_products.quantity =
+        action.payload.productInCart.quantity;
+
+      // state.userCart.products = [
+      //   ...state.userCart.products,
+      //   ...(state.userCart.products[rewriteIndex] = {
+      //     ...productToRewrite,
+      //     order_products: {
+      //       ...productToRewrite.order_products,
+      //       quantity: action.payload.productInCart.quantity,
+      //     },
+      //   }),
+      // ];
       // console.log("rewrite index: ", rewriteIndex);
 
       //destructure and update just the row of the updated product
       //overwrite the nested object with the new version of the nested object
       //spread operation -- such and such isn't iterable,
       //could build an entirely new object write that to state
-      state.userCart.products = state.userCart.products;
     });
   },
 });
