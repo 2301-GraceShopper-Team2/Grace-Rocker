@@ -9,6 +9,7 @@ import {
   selectSingleProduct,
 } from "./singleProductSlice";
 
+
 const SingleProduct = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const SingleProduct = () => {
   const [SKU, setSKU] = useState("");
   const [price, setPrice] = useState("");
   const [imageURL, setImageURL] = useState("");
+
 
   const isAdmin = useSelector((state) => state.auth.me.isAdmin);
   const product = useSelector(selectSingleProduct);
@@ -38,10 +40,10 @@ const SingleProduct = () => {
     if (SKU) update.SKU = SKU;
     if (imageURL) update.imageURL = imageURL;
     dispatch(editProductAsync(update));
-    setName("");
-    setDescription("");
-    setSKU("");
-    setPrice("");
+    setName('');
+    setDescription('');
+    setSKU('');
+    setPrice('');
     setImageURL();
   };
 
@@ -114,6 +116,7 @@ const SingleProduct = () => {
       )}
 
       <button
+        className="btn btn-primary"
         onClick={() => {
           dispatch(addProductToCartAsync(id));
         }}
@@ -125,7 +128,7 @@ const SingleProduct = () => {
         <button
           onClick={() => {
             dispatch(deleteProductAsync(id));
-            navigate("/products");
+            navigate('/products');
           }}
         >
           Delete Product
