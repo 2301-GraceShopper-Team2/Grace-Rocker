@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { apiUrl } from "../../config";
 
 export const fetchAllProductsAsync = createAsyncThunk(
   "products/fetchAll",
   async () => {
     try {
-      const { data } = await axios.get("https://gracerocker.onrender.com/api");
+      const { data } = await axios.get(`${apiUrl}/api/products`);
       return data;
     } catch (err) {
       return err;
