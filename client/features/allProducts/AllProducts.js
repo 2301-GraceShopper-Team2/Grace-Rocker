@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllProductsAsync } from './allProductsSlice.js'; //case is weird
-import { deleteProductAsync } from './allProductsSlice.js';
-import { selectProducts } from './allProductsSlice.js';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  deleteProductAsync,
+  fetchAllProductsAsync,
+  selectProducts,
+} from "./allProductsSlice.js"; //case is weird
 
 const AllProducts = () => {
   const dispatch = useDispatch();
@@ -18,32 +20,48 @@ const AllProducts = () => {
 
   return (
     <div>
-      <h1>AllProducts</h1>
+      <h2 className="text-center">Products</h2>
       {products.length ? (
-        <ul>
+        <div className="row row-cols-4 g-3">
           {products.map((product) => (
-            <li key={product.id}>
-              <Link to={`/products/${product.id}`}>
-                <h4>{product.name}</h4>
-              </Link>
-              <p>{product.description}</p>
-              <p>Price: ${product.price}</p>
-              <p>SKU: {product.SKU}</p>
-              <img src={product.imageURL} />
-
-              {isAdmin && (
-                <button
-                  
-                  onClick={() => {
-                    dispatch(deleteProductAsync(product.id));
-                  }}
-                >
-                  Delete Product
-                </button>
-              )}
-            </li>
+            <div className="col">
+              <div key={product.id} className="card border-light">
+                <Link to={`/products/${product.id}`}>
+                  <img
+                    className="card-img-top"
+                    src={product.imageURL}
+                    style={{
+                      height: "200px",
+                      width: "auto",
+                    }}
+                    alt="instrument"
+                  />
+                </Link>
+                <div className="card-body" style={{ fontSize: "small" }}>
+                  <Link to={`/products/${product.id}`}>
+                    <h4
+                      className="link-secondary"
+                      style={{ fontSize: "medium" }}
+                    >
+                      {product.name}
+                    </h4>
+                  </Link>
+                  <div>SKU: {product.SKU}</div>
+                  <div className="text-right">Price: ${product.price}</div>
+                  {isAdmin && (
+                    <button
+                      onClick={() => {
+                        dispatch(deleteProductAsync(product.id));
+                      }}
+                    >
+                      Delete Product
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
       ) : (
         <h4>No Products Found</h4>
       )}
