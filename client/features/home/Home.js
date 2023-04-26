@@ -19,7 +19,7 @@ const Home = (props) => {
   }, []);
 
   return (
-    <div className="container">
+    <div className="container" style={{ marginBottom: "50px" }}>
       <div>
         <h2 className="text-center">Welcome {username || `Guest`}!</h2>
         {!username && (
