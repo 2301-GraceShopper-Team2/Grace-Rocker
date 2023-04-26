@@ -17,7 +17,6 @@ app.use("/auth", require("./auth"));
 app.use("/api", require("./api"));
 
 app.get("/", (req, res) =>
-  console.log("hi");
   res.sendFile(path.join(__dirname, "..", "public/index.html"))
 );
 
