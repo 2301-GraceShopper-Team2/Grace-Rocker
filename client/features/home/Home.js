@@ -21,40 +21,38 @@ const Home = (props) => {
   return (
     <div>
       <div>
-        <h2>Welcome {username || `Guest`}!</h2>
-        {!username && (
-          <h4>
-            For the best experience, <Link to="/login">log in</Link> or{' '}
-            <Link to="/signup">create an account!</Link>
-          </h4>
-        )}
+        <h2 className="text-center">Welcome {username || `Guest`}!</h2>
       </div>
       <div>
-        <h3>Featured Products</h3>
+        <h3 className="text-center">Featured Products</h3>
+        {!username && (
+          <h5 className="text-center">
+            For the best experience, <Link to="/login">log in</Link> or{' '}
+            <Link to="/signup">create an account!</Link>
+          </h5>
+        )}
         <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-          }}
+          className="row"
+          // style={{
+          //   display: 'flex',
+          //   flexDirection: 'row',
+          // }}
         >
           {featuredProducts &&
             featuredProducts.map((product) => (
-              <span
-                key={product.id}
-                width="300px"
-                style={{
-                  border: '1px solid black',
-                  margin: '5px',
-                  padding: '5px',
-                }}
-              >
+              <span className="col card" key={product.id} width="300px">
                 <p>
-                  <img src={product.imageURL} />
+                  <img
+                    className="card-img-top w-75 p-3  mx-auto d-block"
+                    src={product.imageURL}
+                  />
                 </p>
                 <p>
-                  <Link to={`/products/${product.id}`}>{product.name}</Link>
+                  <Link to={`/products/${product.id}`}>
+                    <h5 className="card-title text-center">{product.name}</h5>
+                  </Link>
                 </p>
-                <p>{product.description}</p>
+                <p className="card-body">{product.description}</p>
               </span>
             ))}
         </div>
