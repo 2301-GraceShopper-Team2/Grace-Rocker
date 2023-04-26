@@ -19,7 +19,7 @@ const Home = (props) => {
   }, []);
 
   return (
-    <div>
+    <div className="container">
       <div>
         <h2 className="text-center">Welcome {username || `Guest`}!</h2>
         {!username && (
@@ -56,11 +56,14 @@ const Home = (props) => {
                     />
                   </Link>
                 </p>
-                <p>
-                  <Link to={`/products/${product.id}`}>
+                <div>
+                  <Link
+                    className="link-secondary"
+                    to={`/products/${product.id}`}
+                  >
                     <h5 className="card-title text-center">{product.name}</h5>
                   </Link>
-                </p>
+                </div>
                 <p className="card-body">{product.description}</p>
               </span>
             ))}
