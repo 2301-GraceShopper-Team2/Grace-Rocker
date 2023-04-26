@@ -14,17 +14,17 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-md navbar-default navbar-fixed-top">
-      <div className="navbar-header">
-        <Link className="navbar-brand" to="/home">
+    <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top ">
+      <div>
+        <Link className="navbar-brand text-center" to="/home">
           Grace Rocker
         </Link>
       </div>
       <div className="collapse navbar-collapse navbar-nav">
         {isLoggedIn ? (
-          <ul className="navbar-nav justify-content-end">
+          <ul className="navbar-nav">
             {isAdmin && (
-              <li className="nav-item">
+              <li className="nav-item text-light">
                 <Link className="nav-link" to="/users">
                   Users
                 </Link>
