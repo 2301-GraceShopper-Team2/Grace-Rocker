@@ -2,20 +2,23 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div>
-      <hr />
+    <div
+      className="navbar-expand-md navbar-dark bg-dark fixed-bottom"
+      style={{ height: "40px" }}
+    >
       <div
         style={{
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-evenly",
+          paddingTop: "10px",
         }}
       >
-        <div>Peter W.</div>
-        <div>Jake A.</div>
-        <div>Jaime L.</div>
-        <div>Jack C.</div>
-        <div>FULLSTACK ACADEMY</div>
+        <div className="text-light">Peter W.</div>
+        <div className="text-light">Jake A.</div>
+        <div className="text-light">Jaime L.</div>
+        <div className="text-light">Jack C.</div>
+        <div className="text-light">FULLSTACK ACADEMY</div>
       </div>
     </div>
   );

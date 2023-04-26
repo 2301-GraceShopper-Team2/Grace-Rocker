@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addProductAsync } from '../allProducts/allProductsSlice.js';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addProductAsync } from "../allProducts/allProductsSlice.js";
 
 const CreateProduct = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [name, setName] = useState();
-  const [description, setDescription] = useState('');
-  const [SKU, setSKU] = useState('');
-  const [price, setPrice] = useState('');
-  const [imageURL, setImageURL] = useState('');
+  const [description, setDescription] = useState("");
+  const [SKU, setSKU] = useState("");
+  const [price, setPrice] = useState("");
+  const [imageURL, setImageURL] = useState("");
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -23,14 +23,15 @@ const CreateProduct = () => {
       };
 
       dispatch(addProductAsync(newProduct));
-      navigate('/products');
+      navigate("/products");
     } else {
-      alert('Please complete all required fields before submitting');
+      alert("Please complete all required fields before submitting");
     }
   };
 
   return (
     <div className="container">
+      <h2 className="text-center">Create Product</h2>
       <div className="row">
         <div className="col-md-6 mx-auto">
           <div className="card mt-4 mb-4">

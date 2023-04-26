@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { fetchAllUsersAsync, selectAllUsers } from './allUsersSlice';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { fetchAllUsersAsync, selectAllUsers } from "./allUsersSlice";
 
 const AllUsers = () => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const AllUsers = () => {
   // };
 
   return (
-    <div>
+    <div style={{ marginBottom: "50px" }}>
       <h2>Admin Control Panel: Users</h2>
       <table className="table">
         <thead>

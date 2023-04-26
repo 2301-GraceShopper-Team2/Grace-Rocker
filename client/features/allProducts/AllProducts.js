@@ -19,7 +19,7 @@ const AllProducts = () => {
   const products = useSelector(selectProducts); // state.allProducts.products is the name of the slice of state in the store
 
   return (
-    <div >
+    <div style={{ marginBottom: "50px" }}>
       <h2 className="text-center">Products</h2>
       {products.length ? (
         <div className="row row-cols-4 g-3">
@@ -50,6 +50,7 @@ const AllProducts = () => {
                   <div className="text-right">Price: ${product.price}</div>
                   {isAdmin && (
                     <button
+                      className="btn btn-danger"
                       onClick={() => {
                         dispatch(deleteProductAsync(product.id));
                       }}

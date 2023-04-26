@@ -1,6 +1,6 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Checkout = () => {
   const { id } = useParams();
@@ -25,7 +25,7 @@ const Checkout = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container" style={{ marginBottom: "50px" }}>
       <h2>Checkout</h2>
       {order && order.isFulfilled === true ? (
         <h3 className="text-success">Order #{id} successful!</h3>
@@ -64,7 +64,7 @@ const Checkout = () => {
         <div className="mb-3">
           <button
             className="btn btn-secondary"
-            onClick={() => navigate('/cart')}
+            onClick={() => navigate("/cart")}
           >
             Return to Cart
           </button>
@@ -72,7 +72,7 @@ const Checkout = () => {
       )}
 
       <div>
-        <button className="btn btn-primary" onClick={() => navigate('/')}>
+        <button className="btn btn-primary" onClick={() => navigate("/")}>
           Back to Home
         </button>
       </div>
