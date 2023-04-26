@@ -20,9 +20,9 @@ const Navbar = () => {
           Grace Rocker
         </Link>
       </div>
-      <div className="collapse navbar-collapse navbar-nav mr-auto">
+      <div className="collapse navbar-collapse navbar-nav">
         {isLoggedIn ? (
-          <ul className="navbar-nav">
+          <ul className="navbar-nav justify-content-end">
             {isAdmin && (
               <li className="nav-item">
                 <Link className="nav-link" to="/users">
