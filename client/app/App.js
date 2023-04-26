@@ -7,11 +7,15 @@ import AppRoutes from './AppRoutes';
 const App = () => {
   return (
     <div className="container">
-      <Navbar />
+      <header>
+        <Navbar />
+      </header>
       <body>
         <AppRoutes />
       </body>
-      <Footer />
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );
 };
