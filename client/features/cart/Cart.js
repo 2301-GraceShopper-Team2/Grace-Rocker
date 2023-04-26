@@ -73,7 +73,7 @@ const Cart = () => {
 
   return (
     <div className="container mt-5">
-      <h1 className="text-center mb-4">Cart</h1>
+      <h2 className="text-center mb-4">Cart</h2>
       <ul className="list-group">
         {cart &&
           cart.products &&
