@@ -30,56 +30,78 @@ const CreateProduct = () => {
   };
 
   return (
-    <div>
-      <form id="createProduct" onSubmit={handleSubmit}>
-        <label htmlFor="name">Name</label>
-        <input
-          name="name"
-          type="text"
-          onChange={(evt) => {
-            setName(evt.target.value);
-          }}
-        ></input>
-
-        <label htmlFor="description">Description</label>
-        <textarea
-          name="description"
-          type="text"
-          onChange={(evt) => {
-            setDescription(evt.target.value);
-          }}
-        ></textarea>
-
-        <label>Price</label>
-        {/* need input validation on price to make sure it's only 2 decimal places */}
-        <input
-          name="price"
-          type="text"
-          onChange={(evt) => {
-            setPrice(evt.target.value);
-          }}
-        ></input>
-
-        <label>SKU</label>
-        <input
-          name="SKU"
-          type="text"
-          onChange={(evt) => {
-            setSKU(evt.target.value);
-          }}
-        ></input>
-
-        <label>Image URL</label>
-        <input
-          name="imageURL"
-          type="text"
-          onChange={(evt) => {
-            setImageURL(evt.target.value);
-          }}
-        ></input>
-
-        <button type="submit">Submit</button>
-      </form>
+    <div className="container">
+      <div className="row">
+        <div className="col-md-6 mx-auto">
+          <div className="card mt-4 mb-4">
+            <div className="card-body">
+              <form id="createProduct" onSubmit={handleSubmit}>
+                <div className="form-group">
+                  <label htmlFor="name">Name</label>
+                  <input
+                    className="form-control"
+                    name="name"
+                    type="text"
+                    onChange={(evt) => {
+                      setName(evt.target.value);
+                    }}
+                  ></input>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="description">Description</label>
+                  <textarea
+                    className="form-control"
+                    name="description"
+                    type="text"
+                    onChange={(evt) => {
+                      setDescription(evt.target.value);
+                    }}
+                  ></textarea>
+                </div>
+                <div className="form-group">
+                  <label>Price</label>
+                  {/* need input validation on price to make sure it's only 2 decimal places */}
+                  <input
+                    className="form-control"
+                    name="price"
+                    type="text"
+                    onChange={(evt) => {
+                      setPrice(evt.target.value);
+                    }}
+                  ></input>
+                </div>
+                <div className="form-group">
+                  <label>SKU</label>
+                  <input
+                    className="form-control"
+                    name="SKU"
+                    type="text"
+                    onChange={(evt) => {
+                      setSKU(evt.target.value);
+                    }}
+                  ></input>
+                </div>
+                <div className="form-group">
+                  <label>Image URL</label>
+                  <input
+                    className="form-control"
+                    name="imageURL"
+                    type="text"
+                    onChange={(evt) => {
+                      setImageURL(evt.target.value);
+                    }}
+                  ></input>
+                </div>
+                <div className="text-center mt-4">
+                  <button className="btn btn-warning " type="submit">
+                    Submit
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
