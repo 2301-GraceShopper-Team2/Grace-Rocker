@@ -19,7 +19,7 @@ const AllProducts = () => {
   const products = useSelector(selectProducts); // state.allProducts.products is the name of the slice of state in the store
 
   return (
-    <div>
+    <div >
       <h2 className="text-center">Products</h2>
       {products.length ? (
         <div className="row row-cols-4 g-3">

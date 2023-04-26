@@ -14,9 +14,9 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-md navbar-default navbar-fixed-top">
-      <div className="navbar-header">
-        <Link className="navbar-brand" to="/home">
+    <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top ">
+      <div>
+        <Link className="navbar-brand  text-center" to="/home">
           Grace Rocker
         </Link>
       </div>
